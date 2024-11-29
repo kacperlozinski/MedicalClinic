@@ -1,9 +1,26 @@
+using MedicalAPI.Infrastructure.Presistance;
+using Microsoft.EntityFrameworkCore;
+using MedicalAPI.Infrastructure.Extensions;
+using MedicalAPI.Infrastructure.Seeders;
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Configuration.GetConnectionString("DefaultConnection");
+/*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
+builder.Configuration.GetConnectionString("DefaultConnection")));*/
+builder.Services.AddInfrastructure(builder.Configuration);
+
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+
+var seeder = scope.ServiceProvider.GetRequiredService<MedicalSeeder>();
+
+await seeder.Seed();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

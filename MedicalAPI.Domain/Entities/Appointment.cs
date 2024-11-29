@@ -22,8 +22,8 @@ namespace MedicalAPI.Domain.Entities
 
         public virtual Patient Patient { get; set; }
 
-        public string EncodedName { get; private set; } = default!;
+       // public string EncodedName { get; private set; } = default!;
 
-        public void EncodeName() => EncodedName = AppointmentTitle.ToLower().Replace(" ","-");
+       // public void EncodeName() => EncodedName = AppointmentTitle.ToLower().Replace(" ","-");
     }
 }
