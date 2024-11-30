@@ -1,4 +1,6 @@
-﻿using MedicalAPI.Infrastructure.Presistance;
+﻿using MedicalAPI.Domain.Interfaces;
+using MedicalAPI.Infrastructure.Presistance;
+using MedicalAPI.Infrastructure.Repositories;
 using MedicalAPI.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,8 @@ namespace MedicalAPI.Infrastructure.Extensions
             configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<MedicalSeeder>();
+
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         }
     }
 }

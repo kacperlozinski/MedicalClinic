@@ -2,6 +2,7 @@ using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.EntityFrameworkCore;
 using MedicalAPI.Infrastructure.Extensions;
 using MedicalAPI.Infrastructure.Seeders;
+using MedicalAPI.Application.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -13,6 +14,7 @@ builder.Configuration.GetConnectionString("DefaultConnection");
 /*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
 builder.Configuration.GetConnectionString("DefaultConnection")));*/
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
