@@ -12,9 +12,9 @@
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="PatientId" class="control-label">Patient ID</label>
-        <input asp-for="PatientId" type="number" class="form-control" />
-        <span asp-validation-for="PatientId" class="text-danger"></span>
+    <label asp-for="PatientId" class="control-label">Select Patient</label>
+    <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients"></select>
+    <span asp-validation-for="PatientId" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
