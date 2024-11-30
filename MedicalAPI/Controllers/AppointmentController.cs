@@ -28,8 +28,17 @@ namespace MedicalAPI.Controllers
         })
         .ToList();
 
+        var doctors = _dbContext.Doctor
+        .Select(d => new 
+        { 
+            d.DoctorId, 
+            FullName = d.FirstName + " " + d.LastName // Zakładamy, że Doctor ma FirstName i LastName
+        })
+        .ToList();
+
             // Przekazanie danych do widoku za pomocą ViewBag
             ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");
+            ViewBag.Doctors = new SelectList(doctors, "DoctorId", "FullName");
 
             return View();
         }

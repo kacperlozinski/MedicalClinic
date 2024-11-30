@@ -6,8 +6,8 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group mb-3">
-        <label asp-for="DoctorId" class="control-label">Doctor ID</label>
-        <input asp-for="DoctorId" type="number" class="form-control" />
+        <label asp-for="DoctorId" class="control-label">Select Doctor</label>
+        <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors"></select>
         <span asp-validation-for="DoctorId" class="text-danger"></span>
     </div>
 
