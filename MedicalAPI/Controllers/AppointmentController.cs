@@ -20,6 +20,17 @@ namespace MedicalAPI.Controllers
 
         public IActionResult Create()
         {
+            var patients = _dbContext.Patient
+        .Select(p => new
+        {
+            p.PatientId,
+            FullName = p.FirstName + " " + p.LastName
+        })
+        .ToList();
+
+            // Przekazanie danych do widoku za pomocą ViewBag
+            ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");
+
             return View();
         }
 

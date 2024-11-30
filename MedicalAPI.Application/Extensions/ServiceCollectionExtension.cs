@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Application.Services;
+﻿using MedicalAPI.Application.Mappings;
+using MedicalAPI.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace MedicalAPI.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IAppointmentService, AppointmentService>();
+
+            services.AddAutoMapper(typeof(AppointmentMappingProfile));
         }
     }
 }
