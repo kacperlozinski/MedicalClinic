@@ -28,6 +28,7 @@ namespace MedicalAPI.Controllers
         })
         .ToList();
 
+
         var doctors = _dbContext.Doctor
         .Select(d => new 
         { 
@@ -39,6 +40,10 @@ namespace MedicalAPI.Controllers
             // Przekazanie danych do widoku za pomocą ViewBag
             ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");
             ViewBag.Doctors = new SelectList(doctors, "DoctorId", "FullName");
+
+            // Przekazanie danych do widoku za pomocą ViewBag
+            ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");
+
 
             return View();
         }
