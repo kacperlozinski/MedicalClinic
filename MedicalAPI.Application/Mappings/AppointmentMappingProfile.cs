@@ -19,7 +19,9 @@ namespace MedicalAPI.Application.Mappings
                     AppointmentId = src.AppointmentId,
                     PatientId = src.PatientId
                 }));
+
            //CreateMap<DoctorDto>     todo: dodać potem mapping 
+
         }
     }
 }

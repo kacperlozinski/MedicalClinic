@@ -53,7 +53,7 @@ namespace MedicalAPI.Controllers
         {
          
             await _appointmentService.Create(appointment);
-            return RedirectToAction(nameof(Create)); //todo refactor
+            return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
     }
 }

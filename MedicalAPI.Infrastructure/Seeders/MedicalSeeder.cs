@@ -115,7 +115,10 @@ namespace MedicalAPI.Infrastructure.Seeders
                     UserId = 3, // Id Usera z listy Users
                     FirstName = "Alice",
                     LastName = "Johnson",
+                    AppointmentId = 1,
                     PhoneNumber = "123-456-7890",
+                    Email = "test@wp.pl",
+                    Password = "password1"
 
                 },
                 new Patient
@@ -123,7 +126,10 @@ namespace MedicalAPI.Infrastructure.Seeders
                     UserId = 4, // Id Usera z listy Users
                     FirstName = "Bob",
                     LastName = "Williams",
+                    AppointmentId = 2,
+                    Email = "test@wp.pl",
                     PhoneNumber = "098-765-4321",
+                    Password = "password1"
 
                 },
                 new Patient
@@ -131,7 +137,10 @@ namespace MedicalAPI.Infrastructure.Seeders
                     UserId = 5, // Id Usera z listy Users
                     FirstName = "Charlie",
                     LastName = "Brown",
+                    AppointmentId = 3,
                     PhoneNumber = "555-555-5555",
+                    Email = "test@wp.pl",
+                    Password = "password1"
 
                 }
             };

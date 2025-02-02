@@ -1,0 +1,59 @@
+﻿@using MedicalAPI.Domain.Entities
+@model Patient
+
+<h1>Register Patient</h1>
+<hr />
+
+<form asp-action="Create" method="post">
+    <div class="form-group mb-3">
+        <label asp-for="FirstName" class="control-label">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control" required />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="LastName" class="control-label">Last Name</label>
+        <input asp-for="LastName" type="text" class="form-control" required />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" required />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+        <input asp-for="PhoneNumber" type="tel" class="form-control" required />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="control-label">Password</label>
+        <input id="password" name="Password" type="password" class="form-control" required />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="control-label">Confirm Password</label>
+        <input id="confirmPassword" name="ConfirmPassword" type="password" class="form-control" required />
+        <span id="passwordMismatch" class="text-danger" style="display:none;">Passwords do not match!</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var mismatchMessage = document.getElementById('passwordMismatch');
+        
+        if (password !== confirmPassword) {
+            mismatchMessage.style.display = 'block';
+            e.preventDefault();
+        } else {
+            mismatchMessage.style.display = 'none';
+        }
+    });
+</script>

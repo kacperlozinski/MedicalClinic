@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalAPI.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,9 @@ namespace MedicalAPI.Application.Appointment
         public string AppointmentTitle { get; set; }
         public string AppointmentDescription { get; set; }
         public DateTime VisitDate { get; set; }
+
+        public virtual Doctor Doctor { get; set; }
+
+        public virtual Patient Patient { get; set; }
     }
 }

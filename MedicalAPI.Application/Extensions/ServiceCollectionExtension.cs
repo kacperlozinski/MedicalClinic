@@ -16,6 +16,9 @@ namespace MedicalAPI.Application.Extensions
             services.AddScoped<IAppointmentService, AppointmentService>();
 
             services.AddAutoMapper(typeof(AppointmentMappingProfile));
+
+            services.AddScoped<IPatientService, PatientService>();
+            services.AddAutoMapper(typeof(PatientMappingProfile));
         }
     }
 }
