@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedicalAPI.Application.Services
 {
-    public class DoctorService
+    public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
 

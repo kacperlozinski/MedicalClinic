@@ -1,6 +1,7 @@
 ﻿using MedicalAPI.Application.Services;
 using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.AspNetCore.Mvc;
+using MedicalAPI.Application.Services;
 
 namespace MedicalAPI.Controllers
 {
@@ -26,7 +27,7 @@ namespace MedicalAPI.Controllers
         public async Task<IActionResult> Create(Domain.Entities.Doctor doctor)
         {
 
-            await _patientService.Create(doctor);
+            await _doctorService.Create(doctor);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
 
