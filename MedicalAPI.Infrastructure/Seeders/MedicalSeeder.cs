@@ -29,12 +29,6 @@ namespace MedicalAPI.Infrastructure.Seeders
 
                 }
 
-                if (!_dbContext.User.Any())
-                {
-                    var users = GetUsers();
-                    _dbContext.AddRange(users);
-                    await _dbContext.SaveChangesAsync(); ;
-                }
 
                 if (!_dbContext.Doctor.Any())
                 {
@@ -60,7 +54,7 @@ namespace MedicalAPI.Infrastructure.Seeders
             }
         }
 
-        private IEnumerable<User> GetUsers()
+        /*private IEnumerable<User> GetUsers()
         {
             return new List<User>
             {
@@ -70,7 +64,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 new User { UserName = "patient2", UserEmail = "patient2@example.com", Password = "password4" },
                 new User { UserName = "patient3", UserEmail = "patient3@example.com", Password = "password5" }
             };
-        }
+        }*/
 
         private IEnumerable<Specialization> GetSpecializations()
         {
@@ -87,7 +81,7 @@ namespace MedicalAPI.Infrastructure.Seeders
             {
                 new Doctor
                 {
-                    UserId = 1, // Id Usera z listy Users
+                    /*UserId = 1, // Id Usera z listy Users*/
                     FirstName = "John",
                     LastName = "Doe",
                     SpecializationId = 1, // Cardiology
@@ -96,7 +90,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Doctor
                 {
-                    UserId = 2, // Id Usera z listy Users
+                    /*UserId = 2, // Id Usera z listy Users*/
                     FirstName = "Jane",
                     LastName = "Smith",
                     SpecializationId = 2, // Dermatology
@@ -112,7 +106,7 @@ namespace MedicalAPI.Infrastructure.Seeders
             {
                 new Patient
                 {
-                    UserId = 3, // Id Usera z listy Users
+                    /*UserId = 3, // Id Usera z listy Users*/
                     FirstName = "Alice",
                     LastName = "Johnson",
                     AppointmentId = 1,
@@ -123,7 +117,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Patient
                 {
-                    UserId = 4, // Id Usera z listy Users
+                    /*UserId = 4, // Id Usera z listy Users*/
                     FirstName = "Bob",
                     LastName = "Williams",
                     AppointmentId = 2,
@@ -134,7 +128,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Patient
                 {
-                    UserId = 5, // Id Usera z listy Users
+                   /* UserId = 5, // Id Usera z listy Users*/
                     FirstName = "Charlie",
                     LastName = "Brown",
                     AppointmentId = 3,

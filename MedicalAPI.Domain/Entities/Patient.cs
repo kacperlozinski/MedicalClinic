@@ -12,7 +12,7 @@ namespace MedicalAPI.Domain.Entities
         [Key]
         public int PatientId { get; set; }
 
-        public int UserId { get; set; }
+       // public int UserId { get; set; }
 
         public int AppointmentId { get; set; }
 
@@ -26,7 +26,7 @@ namespace MedicalAPI.Domain.Entities
 
         public string Password { get; set; }
 
-        public virtual User User { get; set; }
+      //  public virtual User User { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; }
 

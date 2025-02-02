@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicalAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicalDbContext))]
-    [Migration("20250202162759_Init")]
-    partial class Init
+    [Migration("20250202202053_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,9 +91,6 @@ namespace MedicalAPI.Infrastructure.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Doctor");
                 });
 
@@ -131,14 +128,9 @@ namespace MedicalAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("PatientId");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Patient");
                 });
@@ -162,31 +154,6 @@ namespace MedicalAPI.Infrastructure.Migrations
                     b.HasKey("SpecId");
 
                     b.ToTable("Specialization");
-                });
-
-            modelBuilder.Entity("MedicalAPI.Domain.Entities.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("MedicalAPI.Domain.Entities.Appointment", b =>
@@ -216,15 +183,7 @@ namespace MedicalAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedicalAPI.Domain.Entities.User", "User")
-                        .WithOne("Doctor")
-                        .HasForeignKey("MedicalAPI.Domain.Entities.Doctor", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Specialization");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MedicalAPI.Domain.Entities.Patient", b =>
@@ -232,14 +191,6 @@ namespace MedicalAPI.Infrastructure.Migrations
                     b.HasOne("MedicalAPI.Domain.Entities.Doctor", null)
                         .WithMany("Patients")
                         .HasForeignKey("DoctorId");
-
-                    b.HasOne("MedicalAPI.Domain.Entities.User", "User")
-                        .WithMany("Patients")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MedicalAPI.Domain.Entities.Doctor", b =>
@@ -257,14 +208,6 @@ namespace MedicalAPI.Infrastructure.Migrations
             modelBuilder.Entity("MedicalAPI.Domain.Entities.Specialization", b =>
                 {
                     b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("MedicalAPI.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Doctor")
-                        .IsRequired();
-
-                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

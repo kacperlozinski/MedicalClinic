@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MedicalAPI.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,21 +23,6 @@ namespace MedicalAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Specialization", x => x.SpecId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,12 +47,6 @@ namespace MedicalAPI.Infrastructure.Migrations
                         principalTable: "Specialization",
                         principalColumn: "SpecId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Doctor_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,7 +55,6 @@ namespace MedicalAPI.Infrastructure.Migrations
                 {
                     PatientId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     AppointmentId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -93,11 +71,6 @@ namespace MedicalAPI.Infrastructure.Migrations
                         column: x => x.DoctorId,
                         principalTable: "Doctor",
                         principalColumn: "DoctorId");
-                    table.ForeignKey(
-                        name: "FK_Patient_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -145,20 +118,9 @@ namespace MedicalAPI.Infrastructure.Migrations
                 column: "SpecializationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctor_UserId",
-                table: "Doctor",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Patient_DoctorId",
                 table: "Patient",
                 column: "DoctorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Patient_UserId",
-                table: "Patient",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -175,9 +137,6 @@ namespace MedicalAPI.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Specialization");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

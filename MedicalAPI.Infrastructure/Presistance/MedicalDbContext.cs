@@ -21,7 +21,7 @@ namespace MedicalAPI.Infrastructure.Presistance
         public DbSet<Domain.Entities.Doctor> Doctor { get; set; }
         public DbSet<Domain.Entities.Patient> Patient { get; set; }
         public DbSet<Domain.Entities.Specialization> Specialization { get; set; }
-        public DbSet<Domain.Entities.User> User { get; set; }
+      //  public DbSet<Domain.Entities.User> User { get; set; }
        
 
        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -65,19 +65,19 @@ namespace MedicalAPI.Infrastructure.Presistance
 
 
 
-            modelBuilder.Entity<Patient>()
+           /* modelBuilder.Entity<Patient>()
                 .HasOne(p => p.User)
                 .WithMany(u => u.Patients)
                 .HasForeignKey(p => p.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
-
+                .OnDelete(DeleteBehavior.NoAction);*/
+/*
             modelBuilder.Entity<Doctor>()
          .HasOne(d => d.User) // Jeden Doctor ma jednego Usera
          .WithOne(u => u.Doctor) // Jeden User ma jednego Doctora
          .HasForeignKey<Doctor>(d => d.UserId) // Klucz obcy w tabeli Doctor
          .OnDelete(DeleteBehavior.Cascade); // Możesz ustawić kaskadowe usuwanie
 
-
+*/
         }
     }
 }

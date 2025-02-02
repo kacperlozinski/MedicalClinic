@@ -23,7 +23,7 @@ namespace MedicalAPI.Domain.Entities
         public TimeOnly? AvailableFrom { get; set; }
         public TimeOnly? AvailableTo { get; set; }
 
-        public virtual User User { get; set; }
+        //public virtual User User { get; set; }
 
         public virtual Specialization Specialization { get; set; }
 
