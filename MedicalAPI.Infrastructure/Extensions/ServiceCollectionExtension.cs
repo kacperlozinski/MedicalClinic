@@ -24,6 +24,7 @@ namespace MedicalAPI.Infrastructure.Extensions
 
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
         }
     }
 }

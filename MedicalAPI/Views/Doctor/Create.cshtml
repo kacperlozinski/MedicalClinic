@@ -1,0 +1,39 @@
+﻿@using MedicalAPI.Domain.Entities
+@model Doctor
+
+<h1>Create Doctor</h1>
+<hr />
+
+<form asp-action="Create" method="post">
+    <div class="form-group mb-3">
+        <label asp-for="FirstName" class="control-label">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control" required />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="LastName" class="control-label">Last Name</label>
+        <input asp-for="LastName" type="text" class="form-control" required />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="SpecializationId" class="control-label">Specialization</label>
+        <select asp-for="SpecializationId" class="form-control" asp-items="ViewBag.Specializations"></select>
+        <span asp-validation-for="SpecializationId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="AvailableFrom" class="control-label">Available From</label>
+        <input asp-for="AvailableFrom" type="time" class="form-control" />
+        <span asp-validation-for="AvailableFrom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="AvailableTo" class="control-label">Available To</label>
+        <input asp-for="AvailableTo" type="time" class="form-control" />
+        <span asp-validation-for="AvailableTo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Doctor</button>
+</form>

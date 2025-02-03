@@ -14,8 +14,8 @@ namespace MedicalAPI.Application.MedicalDto
         public int PatientId { get; set; }
         public int DoctorId { get; set; }
        
-        public string AppointmentTitle { get; set; }
-        public string AppointmentDescription { get; set; }
+        public string AppointmentTitle { get; set; } = string.Empty;
+        public string AppointmentDescription { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
 
       //  public virtual Doctor Doctor { get; set; }

@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Application.Services;
+﻿using MedicalAPI.Application.MedicalDto;
+using MedicalAPI.Application.Services;
 using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Domain.Entities.Doctor doctor)
+        public async Task<IActionResult> Create(DoctorDto doctor)
         {
 
             await _doctorService.Create(doctor);

@@ -4,6 +4,6 @@ namespace MedicalAPI.Application.Services
 {
     public interface IDoctorService
     {
-        Task Create(Doctor doctor);
+        Task Create(Application.MedicalDto.DoctorDto doctor);
     }
 }

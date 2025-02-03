@@ -15,8 +15,8 @@ namespace MedicalAPI.Domain.Entities
        // public int UserId { get; set; }
 
         public int AppointmentId { get; set; } //to do wyjebania
-
-        public string FirstName { get; set; }
+        [Required]
+        public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; }
 

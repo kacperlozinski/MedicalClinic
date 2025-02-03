@@ -19,7 +19,11 @@ namespace MedicalAPI.Application.Extensions
             services.AddAutoMapper(typeof(AppointmentDto));
 
             services.AddScoped<IPatientService, PatientService>();
-            services.AddAutoMapper(typeof(PatientMappingProfile));   
+            services.AddAutoMapper(typeof(PatientMappingProfile));
+
+
+            services.AddScoped<IDoctorService,DoctorService>();
+            services.AddAutoMapper(typeof(DoctorMappingProfile));
         }
     }
 }

@@ -13,8 +13,8 @@ namespace MedicalAPI.Domain.Entities
         public int DoctorId { get; set; }
 
         public int UserId { get; set; }
-
-        public string FirstName { get; set; }
+        [Required]
+        public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; }
 

@@ -18,10 +18,10 @@ namespace MedicalAPI.Domain.Entities
 
         public int DoctorId { get; set; }
         public string AppointmentTitle { get; set; }
-        public string AppointmentDescription { get; set; }
+        public string AppointmentDescription { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
 
-        public virtual Doctor Doctor { get; set; }
+        public virtual Doctor Doctor { get; set; } 
 
         public virtual Patient Patient { get; set; }
 
