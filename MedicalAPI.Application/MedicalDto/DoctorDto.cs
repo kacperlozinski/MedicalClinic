@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedicalAPI.Application.Appointment
+namespace MedicalAPI.Application.MedicalDto
 {
     public class DoctorDto
     {

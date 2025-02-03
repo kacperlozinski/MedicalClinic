@@ -1,4 +1,5 @@
 ﻿using MedicalAPI.Application.Mappings;
+using MedicalAPI.Application.MedicalDto;
 using MedicalAPI.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,7 +16,7 @@ namespace MedicalAPI.Application.Extensions
         {
             services.AddScoped<IAppointmentService, AppointmentService>();
 
-            services.AddAutoMapper(typeof(AppointmentMappingProfile));
+            services.AddAutoMapper(typeof(AppointmentDto));
 
             services.AddScoped<IPatientService, PatientService>();
             services.AddAutoMapper(typeof(PatientMappingProfile));   

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MedicalAPI.Application.Appointment;
+using MedicalAPI.Application.MedicalDto;
 using MedicalAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,10 +17,10 @@ namespace MedicalAPI.Application.Mappings
                 .ForMember(e => e.Patient, opt => opt.MapFrom(src => new Patient()
                 {
                     AppointmentId = src.AppointmentId,
-                    PatientId = src.PatientId
+                   // PatientId = src.PatientId
                 }));
 
-           //CreateMap<DoctorDto>     todo: dodać potem mapping 
+            //CreateMap<DoctorDto>     todo: dodać potem mapping 
 
         }
     }

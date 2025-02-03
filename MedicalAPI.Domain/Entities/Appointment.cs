@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -11,8 +12,10 @@ namespace MedicalAPI.Domain.Entities
     public class Appointment
     {
         [Key]
+       // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
         public int PatientId { get; set; }
+
         public int DoctorId { get; set; }
         public string AppointmentTitle { get; set; }
         public string AppointmentDescription { get; set; }

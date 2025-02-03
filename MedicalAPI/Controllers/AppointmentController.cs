@@ -4,6 +4,7 @@ using MedicalAPI.Application.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MedicalAPI.Infrastructure.Presistance;
+using MedicalAPI.Application.MedicalDto;
 
 namespace MedicalAPI.Controllers
 {
@@ -49,7 +50,7 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Domain.Entities.Appointment appointment)
+        public async Task<IActionResult> Create(Application.MedicalDto.AppointmentDto appointment)
         {
          
             await _appointmentService.Create(appointment);
