@@ -1,7 +1,7 @@
 ﻿using MedicalAPI.Application.Services;
 using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.AspNetCore.Mvc;
-using MedicalAPI.Application.Services;
+
 
 namespace MedicalAPI.Controllers
 {

@@ -8,6 +8,6 @@ namespace MedicalAPI.Application.Services
 {
     public interface IPatientService
     {
-        Task Create(Domain.Entities.Patient patient);
+        Task Create(Application.MedicalDto.PatientDto patient);
     }
 }

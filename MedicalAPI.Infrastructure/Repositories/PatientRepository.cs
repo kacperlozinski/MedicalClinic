@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Domain.Entities;
+﻿using MedicalAPI.Application.MedicalDto;
+using MedicalAPI.Domain.Entities;
 using MedicalAPI.Domain.Interfaces;
 using MedicalAPI.Infrastructure.Presistance;
 using System;

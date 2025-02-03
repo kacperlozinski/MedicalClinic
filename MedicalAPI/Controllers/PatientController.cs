@@ -26,7 +26,7 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Domain.Entities.Patient patient)
+        public async Task<IActionResult> Create(Application.MedicalDto.PatientDto patient)
         {
 
             await _patientService.Create(patient);

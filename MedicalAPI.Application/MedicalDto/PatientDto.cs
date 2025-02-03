@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MedicalAPI.Application.MedicalDto
 {
-    internal class PatientDto
+    public class PatientDto
     {
 
         public string? FirstName { get; set; }
 
         public string? LastName { get; set; }
 
-        public int AppointmentId { get; set; }
+       // public int AppointmentId { get; set; }
 
         public string? PhoneNumber { get; set; }
 
