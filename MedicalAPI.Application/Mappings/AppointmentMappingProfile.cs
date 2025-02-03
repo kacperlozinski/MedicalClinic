@@ -14,11 +14,9 @@ namespace MedicalAPI.Application.Mappings
         public AppointmentMappingProfile()
         {
             CreateMap<AppointmentDto, Domain.Entities.Appointment>()
-                .ForMember(e => e.Patient, opt => opt.MapFrom(src => new Patient()
-                {
-                    AppointmentId = src.AppointmentId,
-                   // PatientId = src.PatientId
-                }));
+                .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId))
+                .ForMember(dest => dest.Patient, opt => opt.Ignore());
+             
 
             //CreateMap<DoctorDto>     todo: dodać potem mapping 
 
