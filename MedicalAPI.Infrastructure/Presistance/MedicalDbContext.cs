@@ -1,4 +1,5 @@
 ﻿using MedicalAPI.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace MedicalAPI.Infrastructure.Presistance
 {
 
 
-    public class MedicalDbContext :DbContext
+    public class MedicalDbContext : IdentityDbContext
     {
         public MedicalDbContext(DbContextOptions<MedicalDbContext> options):base(options) 
         {
@@ -31,6 +32,7 @@ namespace MedicalAPI.Infrastructure.Presistance
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             /* modelBuilder.Entity<Doctors>()
          .HasKey(d => d.DoctorId);
 

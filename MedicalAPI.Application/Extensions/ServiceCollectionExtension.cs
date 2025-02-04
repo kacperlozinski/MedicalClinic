@@ -14,6 +14,7 @@ namespace MedicalAPI.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
+
             services.AddScoped<IAppointmentService, AppointmentService>();
 
             services.AddAutoMapper(typeof(AppointmentDto));
@@ -24,6 +25,8 @@ namespace MedicalAPI.Application.Extensions
 
             services.AddScoped<IDoctorService,DoctorService>();
             services.AddAutoMapper(typeof(DoctorMappingProfile));
+
+
         }
     }
 }
