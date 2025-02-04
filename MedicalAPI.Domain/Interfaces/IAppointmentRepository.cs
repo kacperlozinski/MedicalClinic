@@ -9,5 +9,7 @@ namespace MedicalAPI.Domain.Interfaces
     public interface IAppointmentRepository
     {
         Task Create(Domain.Entities.Appointment appointment);  
+
+        Task<IEnumerable<Domain.Entities.Appointment>> GetAll();
     }
 }

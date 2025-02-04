@@ -25,5 +25,14 @@ namespace MedicalAPI.Application.Services
 
             await _appointmentRepository.Create(appointment);
         }
+
+        public async Task<IEnumerable<AppointmentDto>> GetAll()
+        {
+            var appointments = await _appointmentRepository.GetAll();
+
+            var dtos = _mapper.Map<IEnumerable<AppointmentDto>>(appointments);
+
+            return dtos;
+        }
     }
 }

@@ -3,6 +3,7 @@ using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using MedicalAPI.Domain.Entities;
+using Microsoft.Identity.Client;
 
 
 namespace MedicalAPI.Controllers
@@ -32,6 +33,8 @@ namespace MedicalAPI.Controllers
             await _patientService.Create(patient);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
+
+       
 
     }
 }

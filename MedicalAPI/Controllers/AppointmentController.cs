@@ -56,5 +56,12 @@ namespace MedicalAPI.Controllers
             await _appointmentService.Create(appointment);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var appointments = await _appointmentService.GetAll();
+            return View(appointments);
+        }
     }
 }

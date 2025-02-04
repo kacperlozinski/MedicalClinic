@@ -26,5 +26,8 @@ namespace MedicalAPI.Infrastructure.Repositories
             //await _dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT AppointmentId OFF");
 
         }
+
+        public async  Task<IEnumerable<Appointment>> GetAll()
+        => await _dbContext.Appointment.ToListAsync();
     }
 }
