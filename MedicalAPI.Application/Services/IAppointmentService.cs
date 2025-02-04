@@ -1,10 +1,4 @@
-﻿
-
-
-
-
-
-using MedicalAPI.Application.MedicalDto;
+﻿using MedicalAPI.Application.MedicalDto;
 
 namespace MedicalAPI.Application.Services
 {
