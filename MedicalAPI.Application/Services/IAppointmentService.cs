@@ -7,5 +7,7 @@ namespace MedicalAPI.Application.Services
         Task Create(AppointmentDto appointment);
 
         Task<IEnumerable<AppointmentDto>> GetAll();
+
+        Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId);
     }
 }

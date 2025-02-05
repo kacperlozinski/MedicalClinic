@@ -29,5 +29,12 @@ namespace MedicalAPI.Infrastructure.Repositories
 
         public async  Task<IEnumerable<Appointment>> GetAll()
         => await _dbContext.Appointment.ToListAsync();
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByUserIdAsync(string userId)
+        {
+            return await _dbContext.Appointment
+                .Where(a => a.CreatedById == userId)
+                .ToListAsync();
+        }
     }
 }
