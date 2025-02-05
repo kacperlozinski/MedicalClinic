@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MedicalAPI.Infrastructure.Presistance;
 using MedicalAPI.Application.MedicalDto;
+using Microsoft.AspNetCore.Authorization;
+using MedicalAPI.Application.ApplicationUser;
 
 namespace MedicalAPI.Controllers
 {
@@ -12,15 +14,23 @@ namespace MedicalAPI.Controllers
     {
         private readonly IAppointmentService _appointmentService;
         private readonly MedicalDbContext _dbContext;
+        private readonly IUserContext _userContext;
 
-        public AppointmentController(IAppointmentService appointmentService,MedicalDbContext dbContext)
+        public AppointmentController(IAppointmentService appointmentService,MedicalDbContext dbContext, IUserContext userContext)
         {
             _appointmentService = appointmentService;
             _dbContext = dbContext;
+            _userContext = userContext;
         }
-
+        [Authorize]
         public IActionResult Create()
         {
+           /* if (User.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }*/
+          
+
             var patients = _dbContext.Patient
         .Select(p => new
         {
@@ -34,7 +44,7 @@ namespace MedicalAPI.Controllers
         .Select(d => new 
         { 
             d.DoctorId, 
-            FullName = d.FirstName + " " + d.LastName // Zakładamy, że Doctor ma FirstName i LastName
+            FullName = d.FirstName + " " + d.LastName 
         })
         .ToList();
 
@@ -50,11 +60,16 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpPost]
+        
         public async Task<IActionResult> Create(Application.MedicalDto.AppointmentDto appointment)
         {
+
+            appointment.CreatedById = _userContext.GetCurrentUser().Id;
          
             await _appointmentService.Create(appointment);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
+
+
         }
 
         [HttpGet]

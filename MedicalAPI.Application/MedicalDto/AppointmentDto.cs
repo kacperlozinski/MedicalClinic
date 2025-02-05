@@ -1,4 +1,5 @@
 ﻿using MedicalAPI.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,11 @@ namespace MedicalAPI.Application.MedicalDto
         public string AppointmentDescription { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
 
-      //  public virtual Doctor Doctor { get; set; }
+        public string? CreatedById { get; set; }
+                                                    //potrzebny cqrs aby pozbyć się tego z dto 
+        public IdentityUser? CreatedBy { get; set; }
+
+        //  public virtual Doctor Doctor { get; set; }
 
         public virtual Patient Patient { get; set; }
     }

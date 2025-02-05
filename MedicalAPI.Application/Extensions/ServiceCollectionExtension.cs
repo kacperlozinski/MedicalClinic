@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Application.Mappings;
+﻿using MedicalAPI.Application.ApplicationUser;
+using MedicalAPI.Application.Mappings;
 using MedicalAPI.Application.MedicalDto;
 using MedicalAPI.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,8 @@ namespace MedicalAPI.Application.Extensions
 
             services.AddScoped<IDoctorService,DoctorService>();
             services.AddAutoMapper(typeof(DoctorMappingProfile));
+
+            services.AddScoped<IUserContext, UserContext>();
 
 
         }
