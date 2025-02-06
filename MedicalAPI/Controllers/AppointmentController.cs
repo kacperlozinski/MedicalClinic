@@ -7,6 +7,7 @@ using MedicalAPI.Infrastructure.Presistance;
 using MedicalAPI.Application.MedicalDto;
 using Microsoft.AspNetCore.Authorization;
 using MedicalAPI.Application.ApplicationUser;
+using System.Security.Claims;
 
 namespace MedicalAPI.Controllers
 {
@@ -73,10 +74,12 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+               public async Task<IActionResult> Index(Application.MedicalDto.AppointmentDto appointment)
         {
-            var appointments = await _appointmentService.GetAll();
-            return View(appointments);
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Pobierz ID zalogowanego użytkownika
+            var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId); // Pobierz wizyty użytkownika
+            return View(appointments); // Przekaż do widoku
         }
     }
 }
