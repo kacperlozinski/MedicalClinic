@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Domain.Interfaces;
+﻿using MedicalAPI.Application.ApplicationUser;
+using MedicalAPI.Domain.Interfaces;
 using MedicalAPI.Infrastructure.Presistance;
 using MedicalAPI.Infrastructure.Repositories;
 using MedicalAPI.Infrastructure.Seeders;
@@ -21,7 +22,7 @@ namespace MedicalAPI.Infrastructure.Extensions
             services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
             configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<MedicalDbContext>();
 
             services.AddScoped<MedicalSeeder>();

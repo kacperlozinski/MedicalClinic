@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Domain.Entities;
+﻿using MedicalAPI.Application.ApplicationUser;
+using MedicalAPI.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,22 +14,25 @@ namespace MedicalAPI.Infrastructure.Presistance
 
     public class MedicalDbContext : IdentityDbContext
     {
+        public DbSet<Domain.Entities.Appointment> Appointment { get; set; }
+        public DbSet<Domain.Entities.Doctor> Doctor { get; set; }
+        public DbSet<Domain.Entities.Patient> Patient { get; set; }
+        public DbSet<Domain.Entities.Specialization> Specialization { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public MedicalDbContext(DbContextOptions<MedicalDbContext> options):base(options) 
         {
             
         }
 
-        public DbSet<Domain.Entities.Appointment> Appointment { get; set; }
-        public DbSet<Domain.Entities.Doctor> Doctor { get; set; }
-        public DbSet<Domain.Entities.Patient> Patient { get; set; }
-        public DbSet<Domain.Entities.Specialization> Specialization { get; set; }
-      //  public DbSet<Domain.Entities.User> User { get; set; }
-       
+        
+        //  public DbSet<Domain.Entities.User> User { get; set; }
 
-       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=Medi;User Id=sa;Password=Kacper123;TrustServerCertificate=True;");
-        }*/
+
+        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+         {
+             optionsBuilder.UseSqlServer("Server=localhost,1433;Database=Medi;User Id=sa;Password=Kacper123;TrustServerCertificate=True;");
+         }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

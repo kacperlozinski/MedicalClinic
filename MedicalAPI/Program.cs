@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MedicalAPI.Infrastructure.Extensions;
 using MedicalAPI.Infrastructure.Seeders;
 using MedicalAPI.Application.Extensions;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -11,7 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Configuration.GetConnectionString("DefaultConnection");
-/*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
+
+/*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(connectionString));*/
+
+/*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MedicalDbContext>();
+*//*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
 builder.Configuration.GetConnectionString("DefaultConnection")));*/
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
