@@ -12,13 +12,11 @@ namespace MedicalAPI.Application.Services
     public class PatientService : IPatientService
     {
         private readonly IPatientRepository _patientRepository;
-        private readonly IAppointmentRepository _appointmentRepository;
         private readonly IMapper _mapper;
 
-        public PatientService(IPatientRepository patientRepository, IAppointmentRepository appointmentRepository, IMapper mapper)
+        public PatientService(IPatientRepository patientRepository, IMapper mapper)
         {
             _patientRepository = patientRepository;
-            _appointmentRepository = appointmentRepository;
             _mapper = mapper;
         }
         public async Task Create(PatientDto patientDto)
@@ -30,7 +28,5 @@ namespace MedicalAPI.Application.Services
             await _patientRepository.Create(patient);
             
         }
-
-       
     }
 }

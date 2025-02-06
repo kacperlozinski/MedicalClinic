@@ -34,16 +34,5 @@ namespace MedicalAPI.Application.Services
 
             return dtos;
         }
-
-        public async Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId)
-        {
-            var appointments = await _appointmentRepository.GetAppointmentsByUserIdAsync(userId);
-            return appointments.Select(a => new AppointmentDto
-            {
-                CreatedById = a.CreatedById,
-                AppointmentTitle = a.AppointmentTitle,
-                VisitDate = a.VisitDate
-            }).ToList();
-        }
     }
 }
