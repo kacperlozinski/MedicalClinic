@@ -1,5 +1,6 @@
 ﻿using MedicalAPI.Application.ApplicationUser;
 using MedicalAPI.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +19,7 @@ namespace MedicalAPI.Infrastructure.Presistance
         public DbSet<Domain.Entities.Doctor> Doctor { get; set; }
         public DbSet<Domain.Entities.Patient> Patient { get; set; }
         public DbSet<Domain.Entities.Specialization> Specialization { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+       // public DbSet<ApplicationUser> ApplicationUsers { get; set; } ponoć to jest automatycznie obsługiwane przez identitydbcontext
 
         public MedicalDbContext(DbContextOptions<MedicalDbContext> options):base(options) 
         {

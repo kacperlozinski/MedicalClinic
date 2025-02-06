@@ -29,6 +29,8 @@ namespace MedicalAPI.Application.Extensions
 
             services.AddScoped<IUserContext, UserContext>();
 
+            
+
 
         }
     }

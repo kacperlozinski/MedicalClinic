@@ -24,6 +24,7 @@ namespace MedicalAPI.Infrastructure.Extensions
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<MedicalDbContext>();
+               // .AddRoles<IdentityRole> (); 
 
             services.AddScoped<MedicalSeeder>();
 

@@ -64,7 +64,11 @@ namespace MedicalAPI.Controllers
         
         public async Task<IActionResult> Create(Application.MedicalDto.AppointmentDto appointment)
         {
-
+            /*if(!User.IsInRole("Patient"))
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }*/
+            User.IsInRole("Patient");
             appointment.CreatedById = _userContext.GetCurrentUser().Id;
          
             await _appointmentService.Create(appointment);
