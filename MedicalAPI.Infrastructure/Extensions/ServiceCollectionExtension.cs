@@ -22,9 +22,11 @@ namespace MedicalAPI.Infrastructure.Extensions
             services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
             configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>()
+            services.AddRazorPages();
+            //  builder.Services.AddDataProtection();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = false)
                 .AddEntityFrameworkStores<MedicalDbContext>();
-               // .AddRoles<IdentityRole> (); 
+               
 
             services.AddScoped<MedicalSeeder>();
 
