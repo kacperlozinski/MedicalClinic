@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 using System;
 using System.Threading.Tasks;
+using MedicalAPI.Application.ApplicationUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,12 +12,12 @@ namespace MedicalAPI.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ILogger<PersonalDataModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<ApplicationUser> _logger;
 
         public PersonalDataModel(
-            UserManager<IdentityUser> userManager,
-            ILogger<PersonalDataModel> logger)
+            UserManager<ApplicationUser> userManager,
+            ILogger<ApplicationUser> logger)
         {
             _userManager = userManager;
             _logger = logger;
