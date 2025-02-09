@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Nowy folder\**" />
+    <Content Remove="wwwroot\Nowy folder\**" />
+    <EmbeddedResource Remove="wwwroot\Nowy folder\**" />
+    <None Remove="wwwroot\Nowy folder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MedicalAPI.Application\MedicalAPI.Application.csproj" />
     <ProjectReference Include="..\MedicalAPI.Infrastructure\MedicalAPI.Infrastructure.csproj" />
   </ItemGroup>

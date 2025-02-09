@@ -2,6 +2,7 @@ using MedicalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+
 namespace MedicalAPI.Controllers
 {
     public class HomeController : Controller
@@ -20,6 +21,13 @@ namespace MedicalAPI.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+          
+
             return View();
         }
 
