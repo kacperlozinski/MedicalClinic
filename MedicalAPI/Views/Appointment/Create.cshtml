@@ -3,30 +3,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<h1>Create Appointment</h1>
+<h1>Umów wizytę</h1>
 <hr />
-
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" style="max-width:500px">
     <div class="form-group mb-3">
-        <label asp-for="DoctorId" class="control-label">Select Doctor</label>
+        <label asp-for="DoctorId" class="control-label">Wybierz lekarza</label>
         <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors"></select>
         <span asp-validation-for="DoctorId" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-    <label asp-for="PatientId" class="control-label">Select Patient</label>
-    <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients"></select>
-    <span asp-validation-for="PatientId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="AppointmentTitle" class="control-label">Appointment Title</label>
+        <label asp-for="AppointmentTitle" class="control-label">Tytuł wizyty</label>
         <input asp-for="AppointmentTitle" type="text" class="form-control" />
         <span asp-validation-for="AppointmentTitle" class="text-danger"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label asp-for="AppointmentDescription" class="control-label">Description</label>
+        <label asp-for="AppointmentDescription" class="control-label">Szczegóły wizyty</label>
         <textarea asp-for="AppointmentDescription" class="form-control"></textarea>
         <span asp-validation-for="AppointmentDescription" class="text-danger"></span>
     </div>
@@ -36,7 +29,7 @@
         <input asp-for="VisitDate" type="datetime-local" class="form-control" />
         <span asp-validation-for="VisitDate" class="text-danger"></span>
     </div> *@
-    <label asp-for="VisitDate" class="control-label">Visit Date</label>
+    <label asp-for="VisitDate" class="control-label">Data wizyty</label>
     <input asp-for="VisitDate" id="visitDate" class="form-control">
     <script>
         flatpickr("#visitDate", {
@@ -46,9 +39,13 @@
             dateFormat: "Y-m-d H:i",
             minTime: "08:00",
             maxTime: "16:30",
-            minuteIncrement: 30
-        });
-    </script>
+            minuteIncrement: 30,
+            
+           
 
-    <button type="submit" class="btn btn-primary">Create Appointment</button>
+            });
+    </script>
+    <br />
+    <button type="submit" class="btn btn-primary">Umów wizytę</button>
+
 </form>
