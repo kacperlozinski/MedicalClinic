@@ -6,7 +6,10 @@
     <div class="jumbotron text-center bg-primary text-white p-5 rounded">
         <h1 class="display-4">Witamy w naszej przychodni</h1>
         <p class="lead">Profesjonalna opieka medyczna dla Ciebie i Twojej rodziny</p>
-        <a class="btn btn-light btn-lg" href="/Appointment/Create" role="button">Umów wizytę</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-light btn-lg" href="/Appointment/Create" role="button">Umów wizytę</a>
+        }
     </div>
 
     <div class="row mt-5">

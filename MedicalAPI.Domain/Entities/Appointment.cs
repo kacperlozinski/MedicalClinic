@@ -18,8 +18,10 @@ namespace MedicalAPI.Domain.Entities
         //public int PatientId { get; set; }
 
         public int DoctorId { get; set; }
+        [Required]
         public string AppointmentTitle { get; set; }
         public string? AppointmentDescription { get; set; } = string.Empty;
+        [Required]
         public DateTime VisitDate { get; set; }
 
         public string? CreatedById { get; set; }
