@@ -12,11 +12,11 @@ namespace MedicalAPI.Application.MedicalDto
     public class AppointmentDto
     {
         public int AppointmentId { get; set; }
-        public int PatientId { get; set; }
+        //public int PatientId { get; set; }
         public int DoctorId { get; set; }
        
         public string AppointmentTitle { get; set; } = string.Empty;
-        public string AppointmentDescription { get; set; } = string.Empty;
+        public string? AppointmentDescription { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
 
         public string? CreatedById { get; set; }
@@ -25,6 +25,6 @@ namespace MedicalAPI.Application.MedicalDto
 
         //  public virtual Doctor Doctor { get; set; }
 
-        public virtual Patient Patient { get; set; }
+       // public virtual Patient Patient { get; set; }
     }
 }

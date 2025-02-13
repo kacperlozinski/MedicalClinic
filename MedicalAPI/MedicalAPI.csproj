@@ -7,10 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Patient\**" />
     <Compile Remove="wwwroot\Nowy folder\**" />
+    <Content Remove="Views\Patient\**" />
     <Content Remove="wwwroot\Nowy folder\**" />
+    <EmbeddedResource Remove="Views\Patient\**" />
     <EmbeddedResource Remove="wwwroot\Nowy folder\**" />
+    <None Remove="Views\Patient\**" />
     <None Remove="wwwroot\Nowy folder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\PatientController.cs" />
   </ItemGroup>
 
   <ItemGroup>

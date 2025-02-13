@@ -13,9 +13,9 @@ namespace MedicalAPI.Application.Mappings
     {
         public AppointmentMappingProfile()
         {
-            CreateMap<AppointmentDto, Domain.Entities.Appointment>()
-                .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId))
-                .ForMember(dest => dest.Patient, opt => opt.Ignore());
+            CreateMap<AppointmentDto, Domain.Entities.Appointment>();
+                /*.ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId))
+                .ForMember(dest => dest.Patient, opt => opt.Ignore());*/
 
             CreateMap<Appointment, AppointmentDto>();
                // .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId));

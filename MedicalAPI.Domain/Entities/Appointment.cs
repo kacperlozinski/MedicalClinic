@@ -15,11 +15,11 @@ namespace MedicalAPI.Domain.Entities
         [Key]
        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
-        public int PatientId { get; set; }
+        //public int PatientId { get; set; }
 
         public int DoctorId { get; set; }
         public string AppointmentTitle { get; set; }
-        public string AppointmentDescription { get; set; } = string.Empty;
+        public string? AppointmentDescription { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
 
         public string? CreatedById { get; set; }
@@ -28,7 +28,7 @@ namespace MedicalAPI.Domain.Entities
 
         public virtual Doctor Doctor { get; set; } 
 
-        public virtual Patient Patient { get; set; }
+        //public virtual Patient Patient { get; set; }
 
        
 

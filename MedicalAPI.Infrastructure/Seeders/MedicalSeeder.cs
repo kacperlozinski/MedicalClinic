@@ -36,13 +36,13 @@ namespace MedicalAPI.Infrastructure.Seeders
                     _dbContext.AddRange(doctors);
                     await _dbContext.SaveChangesAsync();
                 }
-
+/*
                 if (!_dbContext.Patient.Any())
                 {
                     var patients = GetPatients();
                     _dbContext.AddRange(patients);
                     await _dbContext.SaveChangesAsync();
-                }
+                }*/
 
                 if (!_dbContext.Appointment.Any())
                 {
@@ -100,13 +100,13 @@ namespace MedicalAPI.Infrastructure.Seeders
             };
         }
 
-        private IEnumerable<Patient> GetPatients()
+        /*private IEnumerable<Patient> GetPatients()
         {
             return new List<Patient>
             {
                 new Patient
                 {
-                    /*UserId = 3, // Id Usera z listy Users*/
+                    *//*UserId = 3, // Id Usera z listy Users*//*
                     FirstName = "Alice",
                     LastName = "Johnson",
                     AppointmentId = 1,
@@ -117,7 +117,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Patient
                 {
-                    /*UserId = 4, // Id Usera z listy Users*/
+                    *//*UserId = 4, // Id Usera z listy Users*//*
                     FirstName = "Bob",
                     LastName = "Williams",
                     AppointmentId = 2,
@@ -128,7 +128,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Patient
                 {
-                   /* UserId = 5, // Id Usera z listy Users*/
+                   *//* UserId = 5, // Id Usera z listy Users*//*
                     FirstName = "Charlie",
                     LastName = "Brown",
                     AppointmentId = 3,
@@ -138,7 +138,7 @@ namespace MedicalAPI.Infrastructure.Seeders
 
                 }
             };
-        }
+        }*/
 
         private IEnumerable<Appointment> GetAppointments()
         {
@@ -146,7 +146,7 @@ namespace MedicalAPI.Infrastructure.Seeders
             {
                 new Appointment
                 {
-                    PatientId = 1, // Id pacjenta z listy Patients
+                    //PatientId = 1, // Id pacjenta z listy Patients
                     DoctorId = 1,  // Id doktora z listy Doctors
                     AppointmentTitle = "Cardiology Consultation",
                     AppointmentDescription = "Consultation regarding heart health.",
@@ -155,7 +155,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Appointment
                 {
-                    PatientId = 2, // Id pacjenta z listy Patients
+                   // PatientId = 2, // Id pacjenta z listy Patients
                     DoctorId = 2,  // Id doktora z listy Doctors
                     AppointmentTitle = "Skin Checkup",
                     AppointmentDescription = "Regular skin examination.",
@@ -163,7 +163,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                 },
                 new Appointment
                 {
-                    PatientId = 3, // Id pacjenta z listy Patients
+                   // PatientId = 3, // Id pacjenta z listy Patients
                     DoctorId = 1,  // Id doktora z listy Doctors
                     AppointmentTitle = "Follow-up Cardiology Visit",
                     AppointmentDescription = "Follow-up after initial consultation.",

@@ -22,7 +22,7 @@ namespace MedicalAPI.Application.MedicalDto
 
         public virtual Specialization Specialization { get; set; }
 
-        public virtual ICollection<Domain.Entities.Patient> Patients { get; set; } 
+       // public virtual ICollection<Domain.Entities.Patient> Patients { get; set; } 
 
         public virtual ICollection<Domain.Entities.Appointment> Appointments { get; set; } = new List<Domain.Entities.Appointment>();
     }
