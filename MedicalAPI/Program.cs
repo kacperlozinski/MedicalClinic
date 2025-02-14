@@ -11,6 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+/*builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});*/
+
 builder.Configuration.GetConnectionString("DefaultConnection");
 
 /*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(connectionString));*/
@@ -20,6 +26,13 @@ builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Configuration.GetConnectionString("DefaultConnection")));*/
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
+
 
 var app = builder.Build();
 
@@ -43,6 +56,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

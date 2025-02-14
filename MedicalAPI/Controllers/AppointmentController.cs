@@ -62,6 +62,7 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         
         public async Task<IActionResult> Create(Application.MedicalDto.AppointmentDto appointment)
         {
@@ -79,7 +80,8 @@ namespace MedicalAPI.Controllers
         }
 
         [HttpGet]
-               public async Task<IActionResult> Index(Application.MedicalDto.AppointmentDto appointment)
+        [Authorize]
+        public async Task<IActionResult> Index(Application.MedicalDto.AppointmentDto appointment)
         {
             
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Pobierz ID zalogowanego użytkownika
