@@ -26,6 +26,7 @@ builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Configuration.GetConnectionString("DefaultConnection")));*/
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+/*builder.Services.AddSwaggerGen();*/
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -51,11 +52,20 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+/*app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Medical API v1");
+});*/
+
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+
+
 
 
 app.MapControllerRoute(

@@ -8,6 +8,9 @@ namespace MedicalAPI.Application.Services
 
         Task<IEnumerable<AppointmentDto>> GetAll();
         Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId);
-    
+      
+
+      
+
     }
 }

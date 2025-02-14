@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MedicalAPI.Domain.Entities;
 
 namespace MedicalAPI.Application.Services
 {
@@ -45,6 +46,8 @@ namespace MedicalAPI.Application.Services
                 VisitDate = a.VisitDate
             }).ToList();
         }
+       
+       
 
     }
 }

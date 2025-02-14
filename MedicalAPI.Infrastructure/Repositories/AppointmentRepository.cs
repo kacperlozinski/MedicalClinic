@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Domain.Entities;
+﻿using MedicalAPI.Application.MedicalDto;
+using MedicalAPI.Domain.Entities;
 using MedicalAPI.Domain.Interfaces;
 using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.EntityFrameworkCore;
@@ -36,5 +37,9 @@ namespace MedicalAPI.Infrastructure.Repositories
                 .Where(a => a.CreatedById == userId)
                 .ToListAsync();
         }
+
+    
+
+        
     }
 }

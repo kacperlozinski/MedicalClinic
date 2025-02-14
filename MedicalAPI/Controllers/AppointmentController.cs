@@ -8,6 +8,8 @@ using MedicalAPI.Application.MedicalDto;
 using Microsoft.AspNetCore.Authorization;
 using MedicalAPI.Application.ApplicationUser;
 using System.Security.Claims;
+using MedicalAPI.Domain.Entities;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MedicalAPI.Controllers
 {
@@ -88,5 +90,7 @@ namespace MedicalAPI.Controllers
             var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId); // Pobierz wizyty użytkownika
             return View(appointments); // Przekaż do widoku
         }
+
+       
     }
 }

@@ -26,8 +26,8 @@ namespace MedicalAPI.Infrastructure.Extensions
             //  builder.Services.AddDataProtection();
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = false)
                 .AddEntityFrameworkStores<MedicalDbContext>();
-               
 
+            
             services.AddScoped<MedicalSeeder>();
 
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
