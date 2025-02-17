@@ -28,21 +28,6 @@ namespace MedicalAPI.Controllers
         [Authorize]
         public IActionResult Create()
         {
-           /* if (User.Identity == null || !User.Identity.IsAuthenticated)
-            {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
-            }*/
-          
-
-          /*  var patients = _dbContext.Patient
-        .Select(p => new
-        {
-            p.PatientId,
-            FullName = p.FirstName + " " + p.LastName
-        })
-        .ToList();*/
-
-
         var doctors = _dbContext.Doctor
                 .Include(d => d.Specialization)
         .Select(d => new 
@@ -52,45 +37,35 @@ namespace MedicalAPI.Controllers
         })
         .ToList();
 
-            // Przekazanie danych do widoku za pomocą ViewBag
-           /* ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");*/
             ViewBag.Doctors = new SelectList(doctors, "DoctorId", "FullName");
-
-            // Przekazanie danych do widoku za pomocą ViewBag
-           /* ViewBag.Patients = new SelectList(patients, "PatientId", "FullName");*/
-
 
             return View();
         }
 
         [HttpPost]
         [Authorize]
-        
         public async Task<IActionResult> Create(Application.MedicalDto.AppointmentDto appointment)
         {
-            /*if(!User.IsInRole("Patient"))
-            {
-                return RedirectToAction("NoAccess", "Home");
-            }*/
             User.IsInRole("Patient");
             appointment.CreatedById = _userContext.GetCurrentUser().Id;
          
             await _appointmentService.Create(appointment);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
-
-
         }
+
+      /*  public async Task<IActionResult> Edit(int id)
+        {
+            var dto = _appointmentService.GetByIdAsync(id);
+
+        }*/
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Index(Application.MedicalDto.AppointmentDto appointment)
         {
-            
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Pobierz ID zalogowanego użytkownika
-            var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId); // Pobierz wizyty użytkownika
-            return View(appointments); // Przekaż do widoku
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId); 
+            return View(appointments); 
         }
-
-       
     }
 }

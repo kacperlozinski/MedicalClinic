@@ -1,4 +1,5 @@
 ﻿using MedicalAPI.Application.MedicalDto;
+using MedicalAPI.Domain.Entities;
 
 namespace MedicalAPI.Application.Services
 {
@@ -8,9 +9,7 @@ namespace MedicalAPI.Application.Services
 
         Task<IEnumerable<AppointmentDto>> GetAll();
         Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId);
-      
-
-      
+        Task<Appointment?> GetByIdAsync(int id);
 
     }
 }

@@ -38,8 +38,15 @@ namespace MedicalAPI.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-    
+        public async Task<Appointment?> GetId(int id)
+        {
+            return await _dbContext.Appointment
+                .FirstOrDefaultAsync(a => a.AppointmentId == id);
+        }
 
-        
+
+
+
+
     }
 }

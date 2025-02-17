@@ -13,6 +13,8 @@ namespace MedicalAPI.Domain.Interfaces
 
         Task<IEnumerable<Domain.Entities.Appointment>> GetAll();
         Task<IEnumerable<Appointment>> GetAppointmentsByUserIdAsync(string userId);
-         
+        Task<Appointment?> GetId(int id);
+
+
     }
 }

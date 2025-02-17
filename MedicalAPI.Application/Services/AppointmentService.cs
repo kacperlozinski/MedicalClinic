@@ -46,8 +46,19 @@ namespace MedicalAPI.Application.Services
                 VisitDate = a.VisitDate
             }).ToList();
         }
-       
-       
+
+        public async Task<Appointment?> GetByIdAsync(int id)
+        {
+            var appointment = await _appointmentRepository.GetId(id);
+            return appointment == null ? null : new Appointment
+            {
+                AppointmentId = appointment.AppointmentId,
+                AppointmentDescription = appointment.AppointmentDescription,
+                AppointmentTitle = appointment.AppointmentTitle
+            };
+        }
+
+
 
     }
 }
