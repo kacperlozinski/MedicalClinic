@@ -36,7 +36,7 @@ namespace MedicalAPI.Application.Services
             return dtos;
         }*/
 
-        public async Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId)
+       /* public async Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId)
         {
             var appointments = await _appointmentRepository.GetAppointmentsByUserIdAsync(userId);
             return appointments.Select(a => new AppointmentDto
@@ -45,7 +45,8 @@ namespace MedicalAPI.Application.Services
                 AppointmentTitle = a.AppointmentTitle,
                 VisitDate = a.VisitDate
             }).ToList();
-        }
+            //not needed
+        }*/
 
         public async Task<Appointment?> GetByIdAsync(int id)
         {

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using MediatR;
 
 using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops;
 
 
 namespace MedicalAPI.Application.Extensions
@@ -22,7 +23,9 @@ namespace MedicalAPI.Application.Extensions
 
             services.AddScoped<IAppointmentService, AppointmentService>(); // to potem to wywalenia jak się zrobi wszystko przez mediatora
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAppointmentCommand).Assembly));  
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAppointmentCommand).Assembly));
+
+           // services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAppointmentByUserIdQuery).Assembly));
 
             services.AddAutoMapper(typeof(AppointmentDto));
 

@@ -22,6 +22,7 @@ namespace MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment
         }
         public async Task<Unit> Handle(CreateAppointmentCommand request, CancellationToken cancellationToken)
         {
+            
             var appointment = _mapper.Map<Domain.Entities.Appointment>(request);
 
             await _appointmentRepository.Create(appointment);
