@@ -10,6 +10,10 @@ using MedicalAPI.Application.ApplicationUser;
 using System.Security.Claims;
 using MedicalAPI.Domain.Entities;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MedicalAPI.Application.MedicalAPI.Commands;
+using MediatR;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops;
+using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
 
 namespace MedicalAPI.Controllers
 {
@@ -18,12 +22,14 @@ namespace MedicalAPI.Controllers
         private readonly IAppointmentService _appointmentService;
         private readonly MedicalDbContext _dbContext;
         private readonly IUserContext _userContext;
+        private readonly IMediator _mediator;
 
-        public AppointmentController(IAppointmentService appointmentService,MedicalDbContext dbContext, IUserContext userContext)
+        public AppointmentController(IAppointmentService appointmentService,MedicalDbContext dbContext, IUserContext userContext, IMediator mediator)
         {
             _appointmentService = appointmentService;
             _dbContext = dbContext;
             _userContext = userContext;
+            _mediator = mediator;
         }
         [Authorize]
         public IActionResult Create()
@@ -44,12 +50,13 @@ namespace MedicalAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(Application.MedicalDto.AppointmentDto appointment)
+        public async Task<IActionResult> Create(CreateAppointmentCommand command)
         {
             User.IsInRole("Patient");
-            appointment.CreatedById = _userContext.GetCurrentUser().Id;
+           // appointment.CreatedById = _userContext.GetCurrentUser().Id;
          
-            await _appointmentService.Create(appointment);
+           // await _appointmentService.Create(appointment);
+           await _mediator.Send(command);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
 
@@ -64,7 +71,8 @@ namespace MedicalAPI.Controllers
         public async Task<IActionResult> Index(Application.MedicalDto.AppointmentDto appointment)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
-            var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId); 
+            //var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId);
+            var appointments = await _mediator.Send(new GetAllAppointmentQuery());
             return View(appointments); 
         }
     }

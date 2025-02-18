@@ -20,7 +20,7 @@ namespace MedicalAPI.Application.Services
             _appointmentRepository = appointmentRepository;
             _mapper = mapper;
         }
-        public async Task Create(AppointmentDto appointmentDto)
+     /*   public async Task Create(AppointmentDto appointmentDto)
         {
             var appointment = _mapper.Map<Domain.Entities.Appointment>(appointmentDto);
 
@@ -34,7 +34,7 @@ namespace MedicalAPI.Application.Services
             var dtos = _mapper.Map<IEnumerable<AppointmentDto>>(appointments);
 
             return dtos;
-        }
+        }*/
 
         public async Task<IEnumerable<AppointmentDto>> GetAppointmentsByUserIdAsync(string userId)
         {

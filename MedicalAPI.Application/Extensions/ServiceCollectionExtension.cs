@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+
+using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
 
 
 namespace MedicalAPI.Application.Extensions
@@ -17,7 +20,9 @@ namespace MedicalAPI.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
 
-            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAppointmentService, AppointmentService>(); // to potem to wywalenia jak się zrobi wszystko przez mediatora
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAppointmentCommand).Assembly));  
 
             services.AddAutoMapper(typeof(AppointmentDto));
 
