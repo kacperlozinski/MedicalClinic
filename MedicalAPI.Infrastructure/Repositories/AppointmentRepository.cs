@@ -27,7 +27,7 @@ namespace MedicalAPI.Infrastructure.Repositories
         {
        //     var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // await _dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT AppointmentId ON");
-          //  appointment.CreatedById = userId;
+           // appointment.CreatedById = "dupa";
             _dbContext.Add(appointment);
             await _dbContext.SaveChangesAsync();
             //await _dbContext.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT AppointmentId OFF");
