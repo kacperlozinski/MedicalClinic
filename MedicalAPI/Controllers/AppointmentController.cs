@@ -14,6 +14,7 @@ using MedicalAPI.Application.MedicalAPI.Commands;
 using MediatR;
 using MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops;
 using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAppointmentById;
 
 namespace MedicalAPI.Controllers
 {
@@ -24,7 +25,7 @@ namespace MedicalAPI.Controllers
         private readonly IUserContext _userContext;
         private readonly IMediator _mediator;
 
-        public AppointmentController(IAppointmentService appointmentService,MedicalDbContext dbContext, IUserContext userContext, IMediator mediator)
+        public AppointmentController(IAppointmentService appointmentService, MedicalDbContext dbContext, IUserContext userContext, IMediator mediator)
         {
             _appointmentService = appointmentService;
             _dbContext = dbContext;
@@ -34,14 +35,14 @@ namespace MedicalAPI.Controllers
         [Authorize]
         public IActionResult Create()
         {
-        var doctors = _dbContext.Doctor
-                .Include(d => d.Specialization)
-        .Select(d => new 
-        { 
-            d.DoctorId, 
-            FullName = d.FirstName + " " + d.LastName + " - " + d.Specialization.Name
-        })
-        .ToList();
+            var doctors = _dbContext.Doctor
+                    .Include(d => d.Specialization)
+            .Select(d => new
+            {
+                d.DoctorId,
+                FullName = d.FirstName + " " + d.LastName + " - " + d.Specialization.Name
+            })
+            .ToList();
 
             ViewBag.Doctors = new SelectList(doctors, "DoctorId", "FullName");
 
@@ -60,11 +61,11 @@ namespace MedicalAPI.Controllers
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
 
-      /*  public async Task<IActionResult> Edit(int id)
-        {
-            var dto = _appointmentService.GetByIdAsync(id);
+        /*  public async Task<IActionResult> Edit(int id)
+          {
+              var dto = _appointmentService.GetByIdAsync(id);
 
-        }*/
+          }*/
 
         [HttpGet]
         [Authorize]
@@ -74,7 +75,24 @@ namespace MedicalAPI.Controllers
 
             //var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId);
             var appointments = await _mediator.Send(new GetAppointmentByUserIdQuery(userId));
-            return View(appointments); 
+            return View(appointments);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("/Appointment/{AppointmentId}")]
+        public async Task<IActionResult> Details(int AppointmentId)
+        {
+            /*var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var CreatedById = _dbContext.Appointment.FirstOrDefaultAsync(a => a.CreatedById == userId);
+            *//*if (CreatedById is null)
+            {
+                return NotFound();
+            }*/
+
+            var appointmentId = await _mediator.Send(new GetAppointmentByIdQuery(AppointmentId));
+
+            return View(appointmentId);
         }
     }
 }
