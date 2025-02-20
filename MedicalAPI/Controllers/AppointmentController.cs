@@ -67,7 +67,7 @@ namespace MedicalAPI.Controllers
 
           }*/
 
-        [HttpGet]
+        [HttpGet("/Appointment/All")]
         [Authorize]
         public async Task<IActionResult> Index(Application.MedicalDto.AppointmentDto appointment)
         {
@@ -80,7 +80,7 @@ namespace MedicalAPI.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("/Appointment/{AppointmentId}")]
+        [Route("/Appointment/Details/{AppointmentId}")]
         public async Task<IActionResult> Details(int AppointmentId)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
