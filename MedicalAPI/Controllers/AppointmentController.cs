@@ -83,14 +83,19 @@ namespace MedicalAPI.Controllers
         [Route("/Appointment/{AppointmentId}")]
         public async Task<IActionResult> Details(int AppointmentId)
         {
-            /*var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var CreatedById = _dbContext.Appointment.FirstOrDefaultAsync(a => a.CreatedById == userId);
-            *//*if (CreatedById is null)
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var CreatedById = await _dbContext.Appointment
+                .Where(a => a.AppointmentId == AppointmentId)
+                .Select(a => a.CreatedById)
+                .FirstOrDefaultAsync();
+            if (CreatedById != userId)
             {
                 return NotFound();
-            }*/
+            }
 
             var appointmentId = await _mediator.Send(new GetAppointmentByIdQuery(AppointmentId));
+
+
 
             return View(appointmentId);
         }

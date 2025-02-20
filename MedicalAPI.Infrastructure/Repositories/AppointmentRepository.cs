@@ -1,4 +1,5 @@
-﻿using MedicalAPI.Application.MedicalDto;
+﻿using MedicalAPI.Application.ApplicationUser;
+using MedicalAPI.Application.MedicalDto;
 using MedicalAPI.Domain.Entities;
 using MedicalAPI.Domain.Interfaces;
 using MedicalAPI.Infrastructure.Presistance;
@@ -11,17 +12,18 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MedicalAPI.Infrastructure.Repositories
 {
     internal class AppointmentRepository : IAppointmentRepository
     {
         private readonly MedicalDbContext _dbContext;
-        
+        private readonly IUserContext _userContext;
 
-        public AppointmentRepository(MedicalDbContext dbContext)
+        public AppointmentRepository(MedicalDbContext dbContext ,IUserContext userContext)
         {
             _dbContext = dbContext;
-            
+            _userContext = userContext;
         }
         public async Task Create(Appointment appointment)
         {
@@ -49,6 +51,8 @@ namespace MedicalAPI.Infrastructure.Repositories
             return await _dbContext.Appointment
                 .FirstOrDefaultAsync(a => a.AppointmentId == id);
         }
+
+       
 
         public async Task<Appointment> GetAppointmentById(int id)
         => await _dbContext.Appointment.FirstOrDefaultAsync(a => a.AppointmentId == id);
