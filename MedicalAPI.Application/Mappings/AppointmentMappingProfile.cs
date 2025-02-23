@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MedicalAPI.Application.MedicalAPI.Commands.EditAppointment;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAppointmentById;
 using MedicalAPI.Application.MedicalDto;
 using MedicalAPI.Domain.Entities;
 using System;
@@ -18,9 +20,9 @@ namespace MedicalAPI.Application.Mappings
                 .ForMember(dest => dest.Patient, opt => opt.Ignore());*/
 
             CreateMap<Appointment, AppointmentDto>();
-               // .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId));
-                
-
+            // .ForMember(dest => dest.PatientId, opt => opt.MapFrom(src => src.PatientId));
+           // CreateMap<AppointmentDto, GetAppointmentByIdQuery>();
+            CreateMap<AppointmentDto, EditAppointmentCommand>();
 
 
             //CreateMap<DoctorDto>     todo: dodać potem mapping 

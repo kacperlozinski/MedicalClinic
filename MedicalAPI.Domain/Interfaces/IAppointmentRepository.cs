@@ -17,6 +17,8 @@ namespace MedicalAPI.Domain.Interfaces
 
         Task<Appointment> GetAppointmentById(int id);   
 
+        /*Task<Appointment> EditAppointment(int id);*/
+
 
     }
 }

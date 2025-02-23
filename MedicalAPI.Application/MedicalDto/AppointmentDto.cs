@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MedicalAPI.Application.MedicalDto
 {
-    public class AppointmentDto
+    public class AppointmentDto 
     {
         public int AppointmentId { get; set; }
         //public int PatientId { get; set; }

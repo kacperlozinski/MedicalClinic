@@ -15,6 +15,8 @@ using MediatR;
 using MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops;
 using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
 using MedicalAPI.Application.MedicalAPI.Queries.GetAppointmentById;
+using MedicalAPI.Application.MedicalAPI.Commands.EditAppointment;
+using AutoMapper;
 
 namespace MedicalAPI.Controllers
 {
@@ -24,13 +26,15 @@ namespace MedicalAPI.Controllers
         private readonly MedicalDbContext _dbContext;
         private readonly IUserContext _userContext;
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public AppointmentController(IAppointmentService appointmentService, MedicalDbContext dbContext, IUserContext userContext, IMediator mediator)
+        public AppointmentController(IAppointmentService appointmentService, MedicalDbContext dbContext, IUserContext userContext, IMediator mediator, IMapper mapper)
         {
             _appointmentService = appointmentService;
             _dbContext = dbContext;
             _userContext = userContext;
             _mediator = mediator;
+            _mapper = mapper;
         }
         [Authorize]
         public IActionResult Create()
@@ -92,12 +96,17 @@ namespace MedicalAPI.Controllers
             {
                 return NotFound();
             }
-
             var appointmentId = await _mediator.Send(new GetAppointmentByIdQuery(AppointmentId));
 
-
-
             return View(appointmentId);
+        }
+        
+        [Route("Appointment/Edit/{AppointmentId}")]
+        public async Task<IActionResult> Edit(int AppointmentId)
+        {
+            var dto = await _mediator.Send(new GetAppointmentByIdQuery(AppointmentId));
+            EditAppointmentCommand model = _mapper.Map<EditAppointmentCommand>(dto);
+            return View(model);
         }
     }
 }
