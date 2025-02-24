@@ -25,7 +25,8 @@ namespace MedicalAPI.Infrastructure.Extensions
             services.AddRazorPages();
             //  builder.Services.AddDataProtection();
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = false)
-                .AddEntityFrameworkStores<MedicalDbContext>();
+                .AddEntityFrameworkStores<MedicalDbContext>()
+                .AddRoles<IdentityRole>();
 
             
             services.AddScoped<MedicalSeeder>();

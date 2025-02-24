@@ -17,9 +17,13 @@ namespace MedicalAPI.Controllers
             _doctorService = doctorService;
         }
 
+        
         public IActionResult Create()
         {
-
+            if(!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
 
             return View();
         }
@@ -27,6 +31,10 @@ namespace MedicalAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DoctorDto doctor)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
 
             await _doctorService.Create(doctor);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
