@@ -17,6 +17,7 @@ using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
 using MedicalAPI.Application.MedicalAPI.Queries.GetAppointmentById;
 using MedicalAPI.Application.MedicalAPI.Commands.EditAppointment;
 using AutoMapper;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MedicalAPI.Controllers
 {
@@ -100,13 +101,26 @@ namespace MedicalAPI.Controllers
 
             return View(appointmentId);
         }
-        
-        [Route("Appointment/Edit/{AppointmentId}")]
+
+
+ 
+        [Route("/Appointment/Edit/{AppointmentId}")]
         public async Task<IActionResult> Edit(int AppointmentId)
         {
             var dto = await _mediator.Send(new GetAppointmentByIdQuery(AppointmentId));
             EditAppointmentCommand model = _mapper.Map<EditAppointmentCommand>(dto);
+
             return View(model);
         }
+
+        [HttpPost]
+        [Route("/Appointment/Edit/{AppointmentId}")]
+        public async Task<IActionResult> Edit(int AppointmentId, EditAppointmentCommand command)
+        {
+            await _mediator.Send(command);
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

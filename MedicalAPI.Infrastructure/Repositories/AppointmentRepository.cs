@@ -59,7 +59,9 @@ namespace MedicalAPI.Infrastructure.Repositories
 
        /* async Task<Appointment> EditAppointment(int id)
             => await _dbContext.Appointment.FirstOrDefaultAsync(a => a.AppointmentId == id);*/
-
+       public Task Commit()
+       => _dbContext.SaveChangesAsync();
+        
 
     }
 }

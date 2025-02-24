@@ -10,6 +10,7 @@ namespace MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment
 {
     public class CreateAppointmentCommand : AppointmentDto, IRequest<Unit>
     {
+       
 
     }
 }

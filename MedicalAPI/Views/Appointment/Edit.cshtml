@@ -8,24 +8,24 @@
 <h2>Edytuj wizytę</h2>
 
 <form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="AppointmentId" />
 
     <div class="mb-3">
-        <label asp-for="Date" class="form-label">Data wizyty</label>
-        <input asp-for="Date" type="datetime-local" class="form-control" />
-        <span asp-validation-for="Date" class="text-danger"></span>
+        <label asp-for="VisitDate" class="form-label">Data wizyty</label>
+        <input asp-for="VisitDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="VisitDate" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Description" class="form-label">Opis</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <label asp-for="AppointmentDescription" class="form-label">Opis</label>
+        <textarea asp-for="AppointmentDescription" class="form-control"></textarea>
+        <span asp-validation-for="AppointmentDescription" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
+    @* <div class="mb-3">
         <label asp-for="DoctorName" class="form-label">Lekarz</label>
         <input asp-for="DoctorName" class="form-control" readonly />
-    </div>
+    </div> *@
 
     <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
     <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
