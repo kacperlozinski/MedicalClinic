@@ -2,6 +2,8 @@
 using MedicalAPI.Application.Services;
 using MedicalAPI.Infrastructure.Presistance;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace MedicalAPI.Controllers
@@ -15,6 +17,7 @@ namespace MedicalAPI.Controllers
         public DoctorController(IDoctorService doctorService, MedicalDbContext dbContext)
         {
             _doctorService = doctorService;
+            _dbContext = dbContext;
         }
 
         
@@ -24,6 +27,15 @@ namespace MedicalAPI.Controllers
             {
                 return RedirectToAction("NoAccess", "Home");
             }
+            var specializations = _dbContext.Specialization
+        .Select(s => new SelectListItem
+        {
+            Value = s.SpecId.ToString(),
+            Text = s.Name
+        })
+        .ToList();
+
+            ViewBag.Specializations = specializations;
 
             return View();
         }
