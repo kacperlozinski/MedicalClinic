@@ -18,6 +18,7 @@ using MedicalAPI.Application.MedicalAPI.Queries.GetAppointmentById;
 using MedicalAPI.Application.MedicalAPI.Commands.EditAppointment;
 using AutoMapper;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using MedicalAPI.Application.MedicalAPI.Commands.DeleteAppointment;
 
 namespace MedicalAPI.Controllers
 {
@@ -119,6 +120,15 @@ namespace MedicalAPI.Controllers
         {
             await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        [Route("/Appointment/Delete/{AppointmentId}")]
+        public async Task<IActionResult> Delete(int AppointmentId, DeleteAppointmentCommand deleteAppointment)
+        {
+            await _mediator.Send(deleteAppointment);
+
+            return View(Index);
         }
 
 

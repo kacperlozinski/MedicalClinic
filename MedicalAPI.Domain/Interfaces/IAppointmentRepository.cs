@@ -19,6 +19,8 @@ namespace MedicalAPI.Domain.Interfaces
 
         /*Task<Appointment> EditAppointment(int id);*/
 
+        Task Delete(int id);
+
         Task Commit();
 
     }

@@ -61,6 +61,18 @@ namespace MedicalAPI.Infrastructure.Repositories
             => await _dbContext.Appointment.FirstOrDefaultAsync(a => a.AppointmentId == id);*/
        public Task Commit()
        => _dbContext.SaveChangesAsync();
+
+        public async Task Delete(int AppointmentId)
+        {
+            var appointment = await _dbContext.Appointment.FindAsync(AppointmentId);
+            if(appointment != null)
+            {
+                 _dbContext.Appointment.Remove(appointment);
+                await _dbContext.SaveChangesAsync();
+            }
+            
+        }
+            
         
 
     }
