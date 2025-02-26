@@ -126,9 +126,19 @@ namespace MedicalAPI.Controllers
         [Route("/Appointment/Delete/{AppointmentId}")]
         public async Task<IActionResult> Delete(int AppointmentId, DeleteAppointmentCommand deleteAppointment)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var CreatedById = await _dbContext.Appointment
+                .Where(a => a.AppointmentId == AppointmentId)
+                .Select(a => a.CreatedById)
+                .FirstOrDefaultAsync();
+            if (CreatedById != userId)
+            {
+                return NotFound();
+            }
+
             await _mediator.Send(deleteAppointment);
 
-            return View(Index);
+            return RedirectToAction(nameof(Index));
         }
 
 

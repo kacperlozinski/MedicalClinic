@@ -11,6 +11,8 @@ namespace MedicalAPI.Application.MedicalAPI.Commands.DeleteAppointment
     public class DeleteAppointmentCommand : IRequest<AppointmentDto>
     {
         public int AppointmentId { get; set; }
+
+        public DeleteAppointmentCommand() { }
         public DeleteAppointmentCommand(int AppointmentId) 
         {
             this.AppointmentId = AppointmentId;
