@@ -17,6 +17,7 @@
                 <p class="card-text">@item.VisitDate</p>
 
                 <a asp-action="Details" asp-route-id="@item.AppointmentId" class="btn btn-info">Szczegóły</a>
+                <a asp-action="Delete" asp-route-id="@item.AppointmentId "class="btn btn-danger" onclick="return confirm('Czy na pewno chcesz usunąć wizytę?');">Usuń</a>
 
             </div>
         </div>
