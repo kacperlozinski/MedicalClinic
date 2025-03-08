@@ -63,6 +63,8 @@ namespace MedicalAPI.Controllers
             /*appointment.CreatedById = _userContext.GetCurrentUser().Id;*/
 
             // await _appointmentService.Create(appointment);
+            if(!ModelState.IsValid)
+            { return BadRequest(); }
             await _mediator.Send(command);
             return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
         }
@@ -108,6 +110,15 @@ namespace MedicalAPI.Controllers
         [Route("/Appointment/Edit/{AppointmentId}")]
         public async Task<IActionResult> Edit(int AppointmentId)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var CreatedById = await _dbContext.Appointment
+                .Where(a => a.AppointmentId == AppointmentId)
+                .Select(a => a.CreatedById)
+                .FirstOrDefaultAsync();
+            if (CreatedById != userId)
+            {
+                return NotFound();
+            }
             var dto = await _mediator.Send(new GetAppointmentByIdQuery(AppointmentId));
             EditAppointmentCommand model = _mapper.Map<EditAppointmentCommand>(dto);
 
@@ -118,6 +129,7 @@ namespace MedicalAPI.Controllers
         [Route("/Appointment/Edit/{AppointmentId}")]
         public async Task<IActionResult> Edit(int AppointmentId, EditAppointmentCommand command)
         {
+            
             await _mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }

@@ -48,10 +48,10 @@ namespace MedicalAPI.Application.Services
             //not needed
         }*/
 
-        public async Task<Appointment?> GetByIdAsync(int id)
+        public async Task<AppointmentDto?> GetByIdAsync(int id)
         {
             var appointment = await _appointmentRepository.GetId(id);
-            return appointment == null ? null : new Appointment
+            return appointment == null ? null : new AppointmentDto
             {
                 AppointmentId = appointment.AppointmentId,
                 AppointmentDescription = appointment.AppointmentDescription,

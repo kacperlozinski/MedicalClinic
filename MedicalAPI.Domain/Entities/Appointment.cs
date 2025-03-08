@@ -19,7 +19,9 @@ namespace MedicalAPI.Domain.Entities
 
         public int DoctorId { get; set; }
         [Required]
+        [MaxLength(50), MinLength(5)]
         public string AppointmentTitle { get; set; }
+        [MaxLength(200)]
         public string? AppointmentDescription { get; set; } = string.Empty;
         [Required]
         public DateTime VisitDate { get; set; }

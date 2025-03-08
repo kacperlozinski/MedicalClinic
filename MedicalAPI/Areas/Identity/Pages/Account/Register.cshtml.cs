@@ -76,7 +76,10 @@ namespace MedicalAPI.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [EmailAddress]
+            [RegularExpression("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9]+)*\\.([a-z]{2,4})$", ErrorMessage = "Niepoprawny format adresu Email.")]
+            //[EmailAddress]
+            //[DetailedEmailValidation(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")]
+
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -98,9 +101,11 @@ namespace MedicalAPI.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
+            [RegularExpression(@"^.{2,}$", ErrorMessage = "Imię musi mieć minimum 2 znaki")]
+            [StringLength(30, ErrorMessage = "Imię  jest za długie")]
             public string FirstName { get; set; }
-
+            [RegularExpression(@"^.{2,}$", ErrorMessage = "Nazwisko musi mieć minimum 2 znaki")]
+            [StringLength(30, ErrorMessage = "Nazwisko  jest za długie")]
             public string LastName { get; set; }
         }
 

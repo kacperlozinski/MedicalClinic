@@ -14,7 +14,8 @@ namespace MedicalAPI.Application.MedicalDto
         public int AppointmentId { get; set; }
         //public int PatientId { get; set; }
         public int DoctorId { get; set; }
-       
+        
+        [MaxLength(50), MinLength(5)]
         public string AppointmentTitle { get; set; } = string.Empty;
         public string? AppointmentDescription { get; set; } = string.Empty;
         public DateTime VisitDate { get; set; }
