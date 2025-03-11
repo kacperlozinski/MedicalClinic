@@ -42,18 +42,22 @@ namespace MedicalAPI.Controllers
         public IActionResult Create()
         {
             var doctors = _dbContext.Doctor
-                    .Include(d => d.Specialization)
-            .Select(d => new
-            {
-                d.DoctorId,
-                FullName = d.FirstName + " " + d.LastName + " - " + d.Specialization.Name
-            })
-            .ToList();
+                .Include(d => d.Specialization)
+                .Select(d => new
+                {
+                    d.DoctorId,
+                    FullName = d.FirstName + " " + d.LastName + " - " + d.Specialization.Name,
+                    AvailableFrom = d.AvailableFrom, 
+                    AvailableTo = d.AvailableTo
+                })
+                .ToList();
 
+            ViewBag.DoctorsList = doctors; // Przekazujemy pełne dane
             ViewBag.Doctors = new SelectList(doctors, "DoctorId", "FullName");
 
             return View();
         }
+
 
         [HttpPost]
         [Authorize]

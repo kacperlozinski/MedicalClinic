@@ -3,54 +3,170 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+<style>
+    .container {
+        display: flex;
+        gap:0% ;
+        flex-grow: 1;
+        width: 100vw;
+    }
+
+    .form-container {
+        flex: 2;
+    }
+
+    .doctors-list {
+        flex: 1;
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background: #f9f9f9;
+    }
+
+    .doctor-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .doctor-table th, .doctor-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .doctor-table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+    .highlight {
+        background-color: aqua;
+        font-weight: bold;
+    }
+</style>
+
 <h1>Umów wizytę</h1>
 <hr />
-<form asp-action="Create" method="post" style="max-width:500px">
-    <div class="form-group mb-3">
-        <label asp-for="DoctorId" class="control-label">Wybierz lekarza</label>
-        <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors"></select>
-        <span asp-validation-for="DoctorId" class="text-danger"></span>
+<div class="container">
+    <!-- FORMULARZ -->
+    <div class="form-container">
+        <form asp-action="Create" method="post" style="max-width:500px">
+            <div class="form-group mb-3">
+                <label asp-for="DoctorId" class="control-label">Wybierz lekarza</label>
+                <select asp-for="DoctorId" id="doctorSelect" class="form-control">
+                    @foreach (var doctor in ViewBag.DoctorsList)
+                    {
+                        <option value="@doctor.DoctorId"
+                                data-from="@doctor.AvailableFrom"
+                                data-to="@doctor.AvailableTo">
+                            @doctor.FullName
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="AppointmentTitle" class="control-label">Tytuł wizyty</label>
+                <input asp-for="AppointmentTitle" type="text" class="form-control" id="AppointmentTitle" />
+                <span asp-validation-for="AppointmentTitle" class="text-danger"></span>
+                <div class="text-danger" id="titleWarning" style="display: none;">Tytuł wizyty musi mieć co najmniej 5 znaków.</div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="AppointmentDescription" class="control-label">Szczegóły wizyty</label>
+                <textarea asp-for="AppointmentDescription" class="form-control" id="AppointmentDescription"></textarea>
+                <span asp-validation-for="AppointmentDescription" class="text-danger"></span>
+                <div class="text-danger" id="descriptionWarning" style="display: none;">Szczegóły wizyty muszą mieć co najmniej 5 znaków.</div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="VisitDate" class="control-label">Data wizyty</label>
+                <input asp-for="VisitDate" id="visitDate" class="form-control">
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-primary">Umów wizytę</button>
+        </form>
     </div>
 
-    <div class="form-group mb-3">
-        <label asp-for="AppointmentTitle" class="control-label">Tytuł wizyty</label>
-        <input asp-for="AppointmentTitle" type="text" class="form-control" id="AppointmentTitle" />
-        <span asp-validation-for="AppointmentTitle" class="text-danger"></span>
-        <div class="text-danger" id="titleWarning" style="display: none;">Tytuł wizyty musi mieć co najmniej 5 znaków.</div>
+    <!-- PANEL BOCZNY Z LISTĄ LEKARZY -->
+    <div class="doctors-list">
+        <h4>Dostępni lekarze</h4>
+        <table class="doctor-table">
+            <thead>
+                <tr>
+                    <th>Imię i nazwisko</th>
+                    <th>Od</th>
+                    <th>Do</th>
+                </tr>
+            </thead>
+            <tbody id="doctorsTable">
+                @foreach (var doctor in ViewBag.DoctorsList)
+                {
+                    <tr data-id="@doctor.DoctorId">
+                        <td>@doctor.FullName</td>
+                        <td>@doctor.AvailableFrom</td>
+                        <td>@doctor.AvailableTo</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="AppointmentDescription" class="control-label">Szczegóły wizyty</label>
-        <textarea asp-for="AppointmentDescription" class="form-control" id="AppointmentDescription"></textarea>
-        <span asp-validation-for="AppointmentDescription" class="text-danger"></span>
-        <div class="text-danger" id="descriptionWarning" style="display: none;">Szczegóły wizyty muszą mieć co najmniej 5 znaków.</div>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="VisitDate" class="control-label">Data wizyty</label>
-        <input asp-for="VisitDate" id="visitDate" class="form-control">
-    </div>
-
-    <br />
-    <button type="submit" class="btn btn-primary">Umów wizytę</button>
-</form>
+</div>
 
 <script>
-    flatpickr("#visitDate", {
-        enableTime: true,
-        noCalendar: false,
-        time_24hr: true,
-        dateFormat: "Y-m-d H:i",
-        minTime: "08:00",
-        maxTime: "16:30",
-        minuteIncrement: 30
-    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let doctorSelect = document.getElementById("doctorSelect");
+        let selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
 
-    document.getElementById("AppointmentTitle").addEventListener("input", function () {
-        document.getElementById("titleWarning").style.display = this.value.length < 5 ? "block" : "none";
-    });
+        let availableFrom = selectedOption.getAttribute("data-from");
+        let availableTo = selectedOption.getAttribute("data-to");
 
-    document.getElementById("AppointmentDescription").addEventListener("input", function () {
-        document.getElementById("descriptionWarning").style.display = this.value.length < 5 ? "block" : "none";
+        let picker = flatpickr("#visitDate", {
+            enableTime: true,
+            noCalendar: false,
+            time_24hr: true,
+            dateFormat: "Y-m-d H:i",
+            minTime: availableFrom,
+            maxTime: availableTo,
+            minuteIncrement: 30,
+            disable: [
+                function (date) {
+                    return (date.getDay() === 6 || date.getDay() === 0); // Blokada weekendów
+                }
+            ],
+            locale: "pl"
+        });
+
+        function updateAvailability() {
+            let selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+            let availableFrom = selectedOption.getAttribute("data-from");
+            let availableTo = selectedOption.getAttribute("data-to");
+
+            picker.set("minTime", availableFrom);
+            picker.set("maxTime", availableTo);
+
+            let rows = document.querySelectorAll("#doctorsTable tr");
+            rows.forEach(row => {
+                row.classList.remove("highlight");
+                if (row.getAttribute("data-id") === selectedOption.value) {
+                    row.classList.add("highlight");
+                }
+            });
+        }
+
+        doctorSelect.addEventListener("change", updateAvailability);
+        updateAvailability();
+
+        document.getElementById("AppointmentTitle").addEventListener("input", function () {
+            document.getElementById("titleWarning").style.display = this.value.length < 5 ? "block" : "none";
+        });
+
+        document.getElementById("AppointmentDescription").addEventListener("input", function () {
+            document.getElementById("descriptionWarning").style.display = this.value.length < 5 ? "block" : "none";
+        });
     });
 </script>
