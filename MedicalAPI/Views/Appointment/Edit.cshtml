@@ -12,28 +12,88 @@
 
     <div class="mb-3">
         <label asp-for="VisitDate" class="form-label">Data wizyty</label>
-        <input asp-for="VisitDate" type="datetime-local" class="form-control" />
+        <input asp-for="VisitDate" id="visitDate" type="datetime-local" class="form-control" />
         <span asp-validation-for="VisitDate" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="AppointmentDescription" class="form-label">Szczegóły wizyty</label>
-        <textarea asp-for="AppointmentDescription" class="form-control"></textarea>
+        <textarea asp-for="AppointmentDescription" id="AppointmentDescription" class="form-control"></textarea>
         <span asp-validation-for="AppointmentDescription" class="text-danger"></span>
         <div class="text-danger" id="descriptionWarning" style="display: none;">Szczegóły wizyty muszą mieć co najmniej 5 znaków.</div>
     </div>
 
-    @* <div class="mb-3">
-        <label asp-for="DoctorName" class="form-label">Lekarz</label>
-        <input asp-for="DoctorName" class="form-control" readonly />
-    </div> *@
+    <div class="mb-3">
+        <label for="doctorSelect" class="form-label">Lekarz</label>
+        <select id="doctorSelect" class="form-control" disabled>
+            @foreach (var doctor in ViewBag.DoctorsList)
+            {
+                <option value="@doctor.DoctorId"
+                        data-from="@doctor.AvailableFrom"
+                        data-to="@doctor.AvailableTo">
+                    @doctor.FullName
+                </option>
+            }
+        </select>
+    </div>
 
     <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
     <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
 </form>
+
 <script>
-    document.getElementById("AppointmentDescription").addEventListener("input", function () {
-        document.getElementById("descriptionWarning").style.display = this.value.length < 5 ? "block" : "none";
+    document.addEventListener("DOMContentLoaded", function () {
+        let doctorSelect = document.getElementById("doctorSelect");
+        let visitDateInput = document.getElementById("visitDate");
+
+        let bookedAppointments = @Html.Raw(Json.Serialize(ViewBag.BookedAppointments));
+
+        function updateAvailability() {
+            let selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+            let availableFrom = selectedOption.getAttribute("data-from");
+            let availableTo = selectedOption.getAttribute("data-to");
+            let doctorId = selectedOption.value;
+
+            let doctorAppointments = bookedAppointments.filter(app => app.DoctorId == doctorId);
+            let disabledDates = doctorAppointments.map(app => app.Date);
+
+            let picker = flatpickr("#visitDate", {
+                enableTime: true,
+                noCalendar: false,
+                time_24hr: true,
+                dateFormat: "Y-m-d H:i",
+                minTime: availableFrom,
+                maxTime: availableTo,
+                minuteIncrement: 30,
+                disable: [
+                    ...disabledDates,
+                    function (date) {
+                        return (date.getDay() === 6 || date.getDay() === 0); // Blokada weekendów
+                    }
+                ],
+                locale: "pl",
+                onChange: function (selectedDates, dateStr) {
+                    let selectedTime = new Date(dateStr).getHours() + ":" + new Date(dateStr).getMinutes();
+                    let availableDoctors = Array.from(doctorSelect.options).filter(option => {
+                        return selectedTime >= option.getAttribute("data-from") && selectedTime <= option.getAttribute("data-to");
+                    });
+            function updateAvailability() {
+            let selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+            let availableFrom = selectedOption.getAttribute("data-from");
+            let availableTo = selectedOption.getAttribute("data-to");
+
+            picker.set("minTime", availableFrom);
+            picker.set("maxTime", availableTo);
+                }
+            });
+        }
+
+        doctorSelect.addEventListener("change", updateAvailability);
+        updateAvailability();
+
+        document.getElementById("AppointmentDescription").addEventListener("input", function () {
+            document.getElementById("descriptionWarning").style.display = this.value.length < 5 ? "block" : "none";
+        });
     });
 </script>
 

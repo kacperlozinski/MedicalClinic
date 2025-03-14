@@ -119,6 +119,19 @@ namespace MedicalAPI.Controllers
                 .Where(a => a.AppointmentId == AppointmentId)
                 .Select(a => a.CreatedById)
                 .FirstOrDefaultAsync();
+            var doctors = _dbContext.Doctor
+               .Include(d => d.Specialization)
+               .Select(d => new
+               {
+                   d.DoctorId,
+                   FullName = d.FirstName + " " + d.LastName + " - " + d.Specialization.Name,
+                   AvailableFrom = d.AvailableFrom,
+                   AvailableTo = d.AvailableTo
+               })
+               .ToList();
+
+            ViewBag.DoctorsList = doctors; // Przekazujemy pełne dane
+            ViewBag.Doctors = new SelectList(doctors, "DoctorId", "FullName");
             if (CreatedById != userId)
             {
                 return NotFound();
