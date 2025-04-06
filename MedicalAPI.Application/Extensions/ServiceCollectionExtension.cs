@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using MediatR;
 
 using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
-using MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAllAppointment;
 using MedicalAPI.Application.MedicalAPI.Commands.EditAppointment;
 
 

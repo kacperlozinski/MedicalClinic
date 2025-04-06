@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops
+namespace MedicalAPI.Application.MedicalAPI.Queries.GetAllAppointment
 {
     public class GetAllAppointmentQueryHandler : IRequestHandler<GetAllAppointmentQuery, IEnumerable<AppointmentDto>>
     {

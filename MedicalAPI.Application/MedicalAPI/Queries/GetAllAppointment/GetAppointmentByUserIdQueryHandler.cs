@@ -14,7 +14,7 @@ using MediatR;
 
 
 
-namespace MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops
+namespace MedicalAPI.Application.MedicalAPI.Queries.GetAllAppointment
 {
     public class GetAppointmentByUserIdQueryHandler : IRequestHandler<GetAppointmentByUserIdQuery, IEnumerable<Appointment>>
     {

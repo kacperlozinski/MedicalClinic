@@ -12,7 +12,7 @@ using MedicalAPI.Domain.Entities;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MedicalAPI.Application.MedicalAPI.Commands;
 using MediatR;
-using MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAllAppointment;
 using MedicalAPI.Application.MedicalAPI.Commands.CreateAppointment;
 using MedicalAPI.Application.MedicalAPI.Queries.GetAppointmentById;
 using MedicalAPI.Application.MedicalAPI.Commands.EditAppointment;

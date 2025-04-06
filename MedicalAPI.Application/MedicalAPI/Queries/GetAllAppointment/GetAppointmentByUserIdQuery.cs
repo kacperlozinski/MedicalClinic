@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedicalAPI.Application.MedicalAPI.Queries.GetAllCarWorkshops
+namespace MedicalAPI.Application.MedicalAPI.Queries.GetAllAppointment
 {
     public class GetAppointmentByUserIdQuery : IRequest<IEnumerable<Appointment>>
     {
