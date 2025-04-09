@@ -14,6 +14,6 @@ namespace MedicalAPI.Application.ApplicationUser
 
         public string LastName { get; set; }
 
-       
+       //
     }
 }
