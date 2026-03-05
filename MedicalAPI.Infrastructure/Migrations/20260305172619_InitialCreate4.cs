@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MedicalAPI.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -203,8 +203,8 @@ namespace MedicalAPI.Infrastructure.Migrations
                     AppointmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    AppointmentTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppointmentDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AppointmentTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AppointmentDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     VisitDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedById = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },

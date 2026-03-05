@@ -1,14 +1,14 @@
-﻿using MedicalAPI.Application.Services;
+using MedicalAPI.Application.Services;
 using MedicalAPI.Infrastructure.Presistance;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
-using MedicalAPI.Domain.Entities;
-using Microsoft.Identity.Client;
-
+using MedicalAPI.Application.MedicalDto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MedicalAPI.Controllers
 {
-    public class PatientController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;
         private readonly MedicalDbContext _dbContext;
@@ -19,22 +19,16 @@ namespace MedicalAPI.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Create()
-        {
-
-
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Create(Application.MedicalDto.PatientDto patient)
+        public async Task<IActionResult> Create(PatientDto patient)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             await _patientService.Create(patient);
-            return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
+            return Ok();
         }
-
-       
-
     }
 }

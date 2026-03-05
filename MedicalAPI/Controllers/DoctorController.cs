@@ -1,16 +1,16 @@
-﻿using MedicalAPI.Application.MedicalDto;
+using MedicalAPI.Application.MedicalDto;
 using MedicalAPI.Application.Services;
 using MedicalAPI.Infrastructure.Presistance;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace MedicalAPI.Controllers
 {
-    public class DoctorController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class DoctorController : ControllerBase
     {
-        
         private readonly MedicalDbContext _dbContext;
         private readonly IDoctorService _doctorService;
 
@@ -20,37 +20,38 @@ namespace MedicalAPI.Controllers
             _dbContext = dbContext;
         }
 
-        
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DoctorDto>>> GetAll()
         {
-            if(!User.IsInRole("Admin"))
-            {
-                return RedirectToAction("NoAccess", "Home");
-            }
-            var specializations = _dbContext.Specialization
-        .Select(s => new SelectListItem
-        {
-            Value = s.SpecId.ToString(),
-            Text = s.Name
-        })
-        .ToList();
-
-            ViewBag.Specializations = specializations;
-
-            return View();
+            // Assuming DoctorService has a way to get all doctors or we can query DB
+            var doctors = await _dbContext.Doctor
+                .Include(d => d.Specialization)
+                .ToListAsync();
+            
+            // This is a simple projection, ideally use Mapper or a Service method
+            return Ok(doctors);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(DoctorDto doctor)
         {
-            if (!User.IsInRole("Admin"))
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction("NoAccess", "Home");
+                return BadRequest(ModelState);
             }
 
             await _doctorService.Create(doctor);
-            return RedirectToAction(nameof(Create)); //todo refactor tymczasowo tak żeby nie sadziło błedu, potem gdzies indziej przekierowanie zrobic
+            return Ok();
         }
 
+        [HttpGet("specializations")]
+        public async Task<IActionResult> GetSpecializations()
+        {
+            var specializations = await _dbContext.Specialization
+                .Select(s => new { s.SpecId, s.Name })
+                .ToListAsync();
+
+            return Ok(specializations);
+        }
     }
 }

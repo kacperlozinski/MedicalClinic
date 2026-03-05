@@ -9,24 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-
-/*builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Identity/Account/Login";
-    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-});*/
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Configuration.GetConnectionString("DefaultConnection");
 
-/*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(connectionString));*/
-
-/*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MedicalDbContext>();
-*//*builder.Services.AddDbContext<MedicalDbContext>(options => options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnection")));*/
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
-/*builder.Services.AddSwaggerGen();*/
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -44,34 +34,24 @@ var seeder = scope.ServiceProvider.GetRequiredService<MedicalSeeder>();
 await seeder.Seed();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Medical API v1");
+    });
 }
 
 app.UseHttpsRedirection();
-/*app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Medical API v1");
-});*/
-
 
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapRazorPages();    
+app.MapControllers();
 
 app.Run();
