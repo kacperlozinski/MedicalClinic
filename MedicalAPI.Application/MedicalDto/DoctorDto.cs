@@ -10,6 +10,8 @@ namespace MedicalAPI.Application.MedicalDto
 {
     public class DoctorDto
     {
+        public int DoctorId { get; set; }
+
         [Required]
         public string FirstName { get; set; } = string.Empty;
 

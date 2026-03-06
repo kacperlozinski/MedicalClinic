@@ -1,8 +1,13 @@
-using MedicalAPI.Application.Services;
-using MedicalAPI.Infrastructure.Presistance;
-using Microsoft.AspNetCore.Mvc;
 using MedicalAPI.Application.MedicalDto;
-using Microsoft.AspNetCore.Authorization;
+using MedicalAPI.Application.MedicalAPI.Commands.CreatePatient;
+using MedicalAPI.Application.MedicalAPI.Commands.DeletePatient;
+using MedicalAPI.Application.MedicalAPI.Commands.EditPatient;
+using MedicalAPI.Application.MedicalAPI.Queries.GetAllPatient;
+using MedicalAPI.Application.MedicalAPI.Queries.GetPatientById;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MedicalAPI.Controllers
 {
@@ -10,25 +15,56 @@ namespace MedicalAPI.Controllers
     [Route("api/[controller]")]
     public class PatientController : ControllerBase
     {
-        private readonly IPatientService _patientService;
-        private readonly MedicalDbContext _dbContext;
+        private readonly IMediator _mediator;
 
-        public PatientController(IPatientService patientService, MedicalDbContext dbContext)
+        public PatientController(IMediator mediator)
         {
-            _patientService = patientService;
-            _dbContext = dbContext;
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PatientDto>>> GetAll()
+        {
+            var patients = await _mediator.Send(new GetAllPatientQuery());
+            return Ok(patients);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PatientDto>> GetById(int id)
+        {
+            var patient = await _mediator.Send(new GetPatientByIdQuery(id));
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            return Ok(patient);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PatientDto patient)
+        public async Task<IActionResult> Create(CreatePatientCommand command)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _patientService.Create(patient);
+            await _mediator.Send(command);
             return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, EditPatientCommand command)
+        {
+            command.PatientId = id;
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeletePatientCommand(id));
+            return NoContent();
         }
     }
 }

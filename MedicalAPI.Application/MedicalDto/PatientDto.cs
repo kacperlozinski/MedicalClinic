@@ -8,6 +8,7 @@ namespace MedicalAPI.Application.MedicalDto
 {
     public class PatientDto
     {
+        public int PatientId { get; set; }
 
         public string? FirstName { get; set; }
 

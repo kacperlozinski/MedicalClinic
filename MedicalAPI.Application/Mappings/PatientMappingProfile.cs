@@ -12,7 +12,7 @@ namespace MedicalAPI.Application.Mappings
     {
         public PatientMappingProfile() {
         
-            CreateMap<PatientDto, Domain.Entities.Patient>();
+            CreateMap<PatientDto, Domain.Entities.Patient>().ReverseMap();
 
            
         

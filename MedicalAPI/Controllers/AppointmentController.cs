@@ -42,6 +42,13 @@ namespace MedicalAPI.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAllAppointments()
+        {
+            var appointments = await _mediator.Send(new GetAllAppointmentQuery());
+            return Ok(appointments);
+        }
+
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAll()
         {

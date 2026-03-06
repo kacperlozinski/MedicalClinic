@@ -14,7 +14,7 @@ namespace MedicalAPI.Application.Mappings
         public DoctorMappingProfile()
         {
 
-            CreateMap<DoctorDto, Domain.Entities.Doctor>();
+            CreateMap<DoctorDto, Domain.Entities.Doctor>().ReverseMap();
 
             
 

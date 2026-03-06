@@ -1,10 +1,11 @@
-﻿using MedicalAPI.Infrastructure.Presistance;
+using MedicalAPI.Infrastructure.Presistance;
 using MedicalAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAPI.Infrastructure.Seeders
 {
@@ -26,9 +27,7 @@ namespace MedicalAPI.Infrastructure.Seeders
                     var specializations = GetSpecializations();
                     _dbContext.AddRange(specializations);
                     await _dbContext.SaveChangesAsync();
-
                 }
-
 
                 if (!_dbContext.Doctor.Any())
                 {
@@ -36,144 +35,114 @@ namespace MedicalAPI.Infrastructure.Seeders
                     _dbContext.AddRange(doctors);
                     await _dbContext.SaveChangesAsync();
                 }
-/*
+
                 if (!_dbContext.Patient.Any())
                 {
                     var patients = GetPatients();
                     _dbContext.AddRange(patients);
                     await _dbContext.SaveChangesAsync();
-                }*/
+                }
 
                 if (!_dbContext.Appointment.Any())
                 {
-                    var appointments = GetAppointments();
-                 
+                    var appointments = await GetAppointments();
                     _dbContext.AddRange(appointments);
-                    await _dbContext.SaveChangesAsync(); ;
+                    await _dbContext.SaveChangesAsync();
                 }
             }
         }
-
-        /*private IEnumerable<User> GetUsers()
-        {
-            return new List<User>
-            {
-                new User { UserName = "doctor1", UserEmail = "doctor1@example.com", Password = "password1" },
-                new User { UserName = "doctor2", UserEmail = "doctor2@example.com", Password = "password2" },
-                new User { UserName = "patient1", UserEmail = "patient1@example.com", Password = "password3" },
-                new User { UserName = "patient2", UserEmail = "patient2@example.com", Password = "password4" },
-                new User { UserName = "patient3", UserEmail = "patient3@example.com", Password = "password5" }
-            };
-        }*/
 
         private IEnumerable<Specialization> GetSpecializations()
         {
             return new List<Specialization>
             {
                 new Specialization { Name = "Cardiology", Description = "Heart and blood vessels specialist" },
-                new Specialization { Name = "Dermatology", Description = "Skin specialist" }
+                new Specialization { Name = "Dermatology", Description = "Skin specialist" },
+                new Specialization { Name = "Pediatrics", Description = "Child health specialist" },
+                new Specialization { Name = "Neurology", Description = "Nervous system specialist" },
+                new Specialization { Name = "Orthopedics", Description = "Musculoskeletal system specialist" },
+                new Specialization { Name = "Ophthalmology", Description = "Eye specialist" },
+                new Specialization { Name = "Psychiatry", Description = "Mental health specialist" },
+                new Specialization { Name = "Gastroenterology", Description = "Digestive system specialist" },
+                new Specialization { Name = "Oncology", Description = "Cancer specialist" },
+                new Specialization { Name = "Urology", Description = "Urinary tract specialist" }
             };
         }
 
         private IEnumerable<Doctor> GetDoctors()
         {
-            return new List<Doctor>
+            var doctors = new List<Doctor>();
+            var firstNames = new[] { "John", "Jane", "Robert", "Mary", "Michael", "Linda", "William", "Barbara", "David", "Elizabeth", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen", "Christopher", "Nancy" };
+            var lastNames = new[] { "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin" };
+            
+            var random = new Random();
+            var specCount = _dbContext.Specialization.Count();
+            if (specCount == 0) specCount = 10; // Fallback if not saved yet
+
+            for (int i = 0; i < 20; i++)
             {
-                new Doctor
+                doctors.Add(new Doctor
                 {
-                    /*UserId = 1, // Id Usera z listy Users*/
-                    FirstName = "John",
-                    LastName = "Doe",
-                    SpecializationId = 1, // Cardiology
-                    AvailableFrom = new TimeOnly(9, 0),
-                    AvailableTo = new TimeOnly(17, 0)
-                },
-                new Doctor
-                {
-                    /*UserId = 2, // Id Usera z listy Users*/
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    SpecializationId = 2, // Dermatology
-                    AvailableFrom = new TimeOnly(8, 0),
-                    AvailableTo = new TimeOnly(16, 0)
-                }
-            };
+                    FirstName = firstNames[i % firstNames.Length],
+                    LastName = lastNames[i % lastNames.Length],
+                    SpecializationId = (i % specCount) + 1,
+                    AvailableFrom = new TimeOnly(8 + (i % 2), 0),
+                    AvailableTo = new TimeOnly(16 + (i % 2), 0)
+                });
+            }
+            return doctors;
         }
 
-        /*private IEnumerable<Patient> GetPatients()
+        private IEnumerable<Patient> GetPatients()
         {
-            return new List<Patient>
+            var patients = new List<Patient>();
+            var random = new Random();
+            for (int i = 0; i < 100; i++)
             {
-                new Patient
+                patients.Add(new Patient
                 {
-                    *//*UserId = 3, // Id Usera z listy Users*//*
-                    FirstName = "Alice",
-                    LastName = "Johnson",
-                    AppointmentId = 1,
-                    PhoneNumber = "123-456-7890",
-                    Email = "test@wp.pl",
-                    Password = "password1"
+                    FirstName = $"PatientFS_{i}",
+                    LastName = $"PatientLS_{i}",
+                    PhoneNumber = $"555-{random.Next(100, 999)}-{random.Next(1000, 9999)}",
+                    Email = $"patient{i}@example.com",
+                    Password = "HashedPassword123!" // Simple placeholder
+                });
+            }
+            return patients;
+        }
 
-                },
-                new Patient
-                {
-                    *//*UserId = 4, // Id Usera z listy Users*//*
-                    FirstName = "Bob",
-                    LastName = "Williams",
-                    AppointmentId = 2,
-                    Email = "test@wp.pl",
-                    PhoneNumber = "098-765-4321",
-                    Password = "password1"
-
-                },
-                new Patient
-                {
-                   *//* UserId = 5, // Id Usera z listy Users*//*
-                    FirstName = "Charlie",
-                    LastName = "Brown",
-                    AppointmentId = 3,
-                    PhoneNumber = "555-555-5555",
-                    Email = "test@wp.pl",
-                    Password = "password1"
-
-                }
-            };
-        }*/
-
-        private IEnumerable<Appointment> GetAppointments()
+        private async Task<IEnumerable<Appointment>> GetAppointments()
         {
-            return new List<Appointment>
-            {
-                new Appointment
-                {
-                    //PatientId = 1, // Id pacjenta z listy Patients
-                    DoctorId = 1,  // Id doktora z listy Doctors
-                    AppointmentTitle = "Cardiology Consultation",
-                    AppointmentDescription = "Consultation regarding heart health.",
-                    VisitDate = DateTime.Now.AddDays(1),
-                    
-                },
-                new Appointment
-                {
-                   // PatientId = 2, // Id pacjenta z listy Patients
-                    DoctorId = 2,  // Id doktora z listy Doctors
-                    AppointmentTitle = "Skin Checkup",
-                    AppointmentDescription = "Regular skin examination.",
-                    VisitDate = DateTime.Now.AddDays(2)
-                },
-                new Appointment
-                {
-                   // PatientId = 3, // Id pacjenta z listy Patients
-                    DoctorId = 1,  // Id doktora z listy Doctors
-                    AppointmentTitle = "Follow-up Cardiology Visit",
-                    AppointmentDescription = "Follow-up after initial consultation.",
-                    VisitDate = DateTime.Now.AddDays(3)
-                }
-               
-            };
+            var appointments = new List<Appointment>();
+            var random = new Random();
             
+            var doctorIds = await _dbContext.Doctor.Select(d => d.DoctorId).ToListAsync();
+            // In case we are seeding for the first time in one transaction and IDs are not yet available:
+            if (!doctorIds.Any())
+            {
+                doctorIds = Enumerable.Range(1, 20).ToList();
+            }
+
+            // Start date: April 21, 2026 (assuming current year or upcoming)
+            var startDate = new DateTime(2026, 4, 21);
+            
+            for (int i = 0; i < 500; i++)
+            {
+                var randomDays = random.Next(0, 180); // Next 6 months
+                var randomHour = random.Next(8, 17);
+                var randomMinute = random.Next(0, 4) * 15; // 0, 15, 30, 45
+                
+                var visitDate = startDate.AddDays(randomDays).AddHours(randomHour).AddMinutes(randomMinute);
+
+                appointments.Add(new Appointment
+                {
+                    DoctorId = doctorIds[random.Next(doctorIds.Count)],
+                    AppointmentTitle = $"Visit {i + 1}",
+                    AppointmentDescription = $"Automated description for visit number {i + 1}.",
+                    VisitDate = visitDate
+                });
+            }
+            return appointments;
         }
     }
-
 }
-
